@@ -1,3 +1,5 @@
+#TODO - education disaggregation
+
 required.packages <- c("reshape2","ggplot2","data.table","foreign")
 lapply(required.packages, require, character.only=T)
 
@@ -44,7 +46,7 @@ ghsp.wg <- as.data.frame(ghsp.wg)
 ghsp.wg[,4:11] <- sapply(ghsp.wg[,4:11], as.double)
 
 #Tidy columns
-ghsp.wg <- ghsp.wg[,c(1,2,3,6,9,7,5,10,11,8,4)]
+ghsp.wg <- ghsp.wg[,c(1,2,3,5,8,6,4,9,10,7,11)]
 
 #Calculate percentages across rows
 ghsp.wg$count <- rowSums(ghsp.wg[,c(4:11)])
@@ -52,10 +54,14 @@ for(i in 1:length(ghsp.wg$age.group)){
   ghsp.wg[i,4:11] <- ghsp.wg[i,4:11]/sum(ghsp.wg[i,4:11])
 }
 
+#Assign working-age column for those between 15-64
+ghsp.wg$working.age <- "No"
+ghsp.wg$working.age[ghsp.wg$age.group>=4&ghsp.wg$age.group<=12] <- "Yes"
+
 #Split dichotomous disability from domains
-ghsp.wg.domains <- ghsp.wg[,c(1,2,3,7:12)]
+ghsp.wg.domains <- ghsp.wg[,c(1,2,3,13,7:12)]
 ghsp.wg.domains <- subset(ghsp.wg.domains, variable != "disabled")
-ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1:6,12)]
+ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1,2,3,13,4,5,6,12)]
 
 write.csv(ghsp.wg.domains,"output/GHSP WG domains.csv")
 write.csv(ghsp.wg.overall,"output/GHSP WG overall.csv")
