@@ -63,7 +63,13 @@ ghsp.wg.domains <- ghsp.wg[,c(1,2,3,13,7:12)]
 ghsp.wg.domains <- subset(ghsp.wg.domains, variable != "disabled")
 ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1,2,3,13,4,5,6,12)]
 
-write.csv(ghsp.wg.domains,"output/GHSP WG domains.csv")
-write.csv(ghsp.wg.overall,"output/GHSP WG overall.csv")
+ghsp.wg.domains$impaired <- ghsp.wg.domains$`CANNOT DO`+ghsp.wg.domains$`YES, A LOT`
+ghsp.wg.domains$`not impaired` <- ghsp.wg.domains$`YES, SOME`+ghsp.wg.domains$`NO, NO DIFFICULTY`
+
+ghsp.wg.overall.agg <- as.data.table(ghsp.wg.overall)[, .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(working.age,SEX)]
+ghsp.wg.domains.working <- as.data.table(ghsp.wg.domains)[working.age=="Yes", .(impaired=sum(count*impaired)/sum(count),`not impaired`=sum(count*`not impaired`)/sum(count),na=sum(count*`NA.1`)/sum(count)), by=.(variable)]
+
+write.csv(ghsp.wg.domains.working,"output/GHSP WG domains.csv")
+write.csv(ghsp.wg.overall.agg,"output/GHSP WG overall.csv")
 
 rm(list=c("ghsp.wg.cut","ghsp.wg.melt","ghsp.other.cut","ghsp.other.melt","ghsp.wg","ghsp.health","ghsp.hhr"))
