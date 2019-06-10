@@ -72,10 +72,7 @@ ghsp.wg <- as.data.table(ghsp.wg[,c(1:8,10,14,15,12,9,11,13)])
 
 #Calculate percentages across rows
 ghsp.wg$count <- rowSums(ghsp.wg[,c(9:15)])
-for(i in 1:length(ghsp.wg$age.group)){
-  ghsp.wg[i,9:15] <- ghsp.wg[i,9:15]/ghsp.wg[i,16]
-}
-
+ghsp.wg[,9:15] <- ghsp.wg[,9:15]/rowSums(ghsp.wg[,16])
 
 #Assign working-age column for those between 15-64
 ghsp.wg$working.age <- "No"
