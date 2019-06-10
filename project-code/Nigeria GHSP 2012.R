@@ -1,4 +1,4 @@
-#TODO - education disaggregation
+#TODO - Overall prevalence rate; Employment rate of PWDs and PWoDs by SEX, DOMAIN; Share of WA with disability by SEX, DOMAIN and GEOGRAPHY.
 
 required.packages <- c("reshape2","ggplot2","data.table","foreign")
 lapply(required.packages, require, character.only=T)
@@ -29,13 +29,20 @@ ghsp.health.employ$employment[which(ghsp.health.employ[,158]=="YES")] <- "self e
 ghsp.health.employ$employment[which(ghsp.health.employ[,156]=="YES")] <- "employed 3rd party"
 ghsp.health.employ$employment[which(is.na(ghsp.health.employ[,159]))] <- NA
 
-#Create set of null entries for each age group and sex and append - this ensures that
-#ghsp.groups <- unique(subset(ghsp.health,select=c("age.group","SEX")))
-#ghsp.health <- rbind(ghsp.health,ghsp.groups,fill=T)
+##Define employed indicator as everything but unemployment and NA
+ghsp.health.employ$employed <- "unemployed"
+ghsp.health.employ$employed[ghsp.health.employ$employment != "unemployed" | is.na(ghsp.health.employ$employment)] <- "employed"
+ghsp.health.employ$employed[is.na(ghsp.health.employ$employment)] <- NA
 
-#Separate two sets of impairment questions
-ghsp.wg.cut <- ghsp.health.employ[,c(8,111,113,115,117,119,121,228,229)]
-ghsp.other.cut <- ghsp.health.employ[,c(8,106:110,228,229)]
+#Separate two sets of impairment questions - EMPLOYED INDICATOR
+ghsp.wg.cut <- ghsp.health.employ[,c(8,111,113,115,117,119,121,228,230)]
+ghsp.other.cut <- ghsp.health.employ[,c(8,106:110,228,230)]
+names(ghsp.wg.cut)[9] <- "employment"
+names(ghsp.other.cut)[8] <- "employment"
+
+##Separate two sets of impairment questions - EMPLOYMENT INDICATOR
+#ghsp.wg.cut <- ghsp.health.employ[,c(8,111,113,115,117,119,121,228,229)]
+#ghsp.other.cut <- ghsp.health.employ[,c(8,106:110,228,229)]
 
 #Replace "CANNOT SEE" and "CANNOT HEAR" responses with "CANNOT DO"
 levels(ghsp.wg.cut$`DO YOU HAVE DIFFICULTY SEEING, EVEN IF YOU ARE WEARING GLASSES?`)[match("CANNOT SEE", levels(ghsp.wg.cut$`DO YOU HAVE DIFFICULTY SEEING, EVEN IF YOU ARE WEARING GLASSES?`))] <- "CANNOT DO"
@@ -74,18 +81,43 @@ ghsp.wg.domains <- ghsp.wg[,c(1,2,3,4,13,5,9,11,6,7,12)]
 ghsp.wg.domains <- subset(ghsp.wg.domains, variable != "disabled")
 ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1,2,3,4,13,10,8,7,12)]
 
+#Define 'impaired' as CANNOT DO & YES, A LOT
 ghsp.wg.domains$impaired <- ghsp.wg.domains$`CANNOT DO`+ghsp.wg.domains$`YES, A LOT`
 ghsp.wg.domains$`not impaired` <- ghsp.wg.domains$`YES, SOME`+ghsp.wg.domains$`NO, NO DIFFICULTY`
 
-ghsp.wg.overall.working <- as.data.table(ghsp.wg.overall)[working.age=="Yes", .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(employment)]
-ghsp.wg.domains.working <- as.data.table(ghsp.wg.domains)[working.age=="Yes", .(impaired=sum(count*impaired)/sum(count),`not impaired`=sum(count*`not impaired`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(variable,employment)]
 
-ghsp.wg.disabled.working <- as.data.table(ghsp.wg.overall)[working.age=="Yes", .(disabled=sum(count*Disabled),not.disabled=sum(count*`Not disabled`)),by=employment]
-ghsp.wg.disabled.working$disabled <- ghsp.wg.disabled.working$disabled/sum(ghsp.wg.overall$Disabled[ghsp.wg.overall$working.age=="Yes"]*ghsp.wg.overall$count[ghsp.wg.overall$working.age=="Yes"])
-ghsp.wg.disabled.working$not.disabled <- ghsp.wg.disabled.working$not.disabled/sum(ghsp.wg.overall$`Not disabled`[ghsp.wg.overall$working.age=="Yes"]*ghsp.wg.overall$count[ghsp.wg.overall$working.age=="Yes"])
+###OUTPUTS###
 
-write.csv(ghsp.wg.domains.working,"output/GHSP WG WA domains.csv")
-write.csv(ghsp.wg.overall.working,"output/GHSP WG WA overall.csv")
-write.csv(ghsp.wg.disabled.working,"output/GHSP WG WA disabled employment.csv")
+#OVERALL PREVALENCE RATE
+##TODO
+
+#SHARE OF WORKING AGE POPULATION WHO ARE DISABLED, BY SEX
+ghsp.wg.overall.working <- as.data.table(ghsp.wg.overall)[working.age=="Yes", .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(SEX)]
+ghsp.wg.overall.working <- ghsp.wg.overall.working[complete.cases(ghsp.wg.overall.working)]
+write.csv(ghsp.wg.overall.working,"output/GHSP WG WA overall.csv", row.names = F)
+
+#SHARE OF WORKING AGE POPULATION WHO ARE DISABLED, BY SEX AND DOMAIN
+ghsp.wg.domains.working <- as.data.table(ghsp.wg.domains)[working.age=="Yes", .(impaired=sum(count*impaired)/sum(count),`not impaired`=sum(count*`not impaired`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(variable,SEX)]
+ghsp.wg.domains.working <- melt(ghsp.wg.domains.working, id.vars = c(1,2))
+ghsp.wg.domains.working <- dcast(subset(ghsp.wg.domains.working, variable.1 == "impaired"), SEX ~ variable)
+write.csv(ghsp.wg.domains.working,"output/GHSP WG WA domains.csv", row.names = F)
+
+#WORKING AGE POPULATION WHO ARE DISABLED, BY GEOGRAPHY
+##TODO
+
+#EMPLOYMENT RATE FOR WORKING AGE PWDS AND PWODS, BY SEX
+ghsp.wg.overall.employ <- as.data.table(ghsp.wg.overall)[working.age=="Yes", .(disabled=sum(count*Disabled),not.disabled=sum(count*`Not disabled`)),by=.(employment,SEX)]
+ghsp.wg.overall.employ <- cbind(ghsp.wg.overall.employ[,1],ghsp.wg.overall.employ[, .(disabled=disabled/sum(disabled),not.disabled=not.disabled/sum(not.disabled)),by=SEX])
+ghsp.wg.overall.employ <- ghsp.wg.overall.employ[complete.cases(ghsp.wg.overall.employ)]
+ghsp.wg.overall.employ <- subset(ghsp.wg.overall.employ, employment != "unemployed")
+write.csv(ghsp.wg.overall.employ,"output/GHSP WG WA overall employment.csv", row.names = F)
+
+#EMPLOYMENT RATE FOR WORKING AGE PWDS, BY SEX AND DOMAIN
+ghsp.wg.domains.employ <- as.data.table(ghsp.wg.domains)[working.age=="Yes", .(impaired=sum(count*impaired),not.impaired=sum(count*`not impaired`)),by=.(variable,employment,SEX)]
+ghsp.wg.domains.employ <- cbind(ghsp.wg.domains.employ[,2],ghsp.wg.domains.employ[, .(impaired=impaired/sum(impaired),not.impaired=not.impaired/sum(not.impaired)),by=.(SEX,variable)])
+ghsp.wg.domains.employ <- melt(ghsp.wg.domains.employ, id.vars=c(1:3))
+ghsp.wg.domains.employ <- dcast(subset(ghsp.wg.domains.employ, employment != "unemployed" & variable.1 == "impaired"), SEX ~ variable)
+ghsp.wg.domains.employ <- ghsp.wg.domains.employ[complete.cases(ghsp.wg.domains.employ)]
+write.csv(ghsp.wg.overall.employ,"output/GHSP WG WA domains employment.csv", row.names = F)
 
 rm(list=c("ghsp.wg.cut","ghsp.wg.melt","ghsp.other.cut","ghsp.other.melt","ghsp.wg","ghsp.health","ghsp.hhr","ghsp.employ","ghsp.health.employ","ghsp.wg.domains","ghsp.wg.overall"))
