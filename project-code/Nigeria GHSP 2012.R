@@ -125,6 +125,6 @@ ghsp.wg.domains.employ <- cbind(ghsp.wg.domains.employ[,2],ghsp.wg.domains.emplo
 ghsp.wg.domains.employ <- melt(ghsp.wg.domains.employ, id.vars=c(1:3))
 ghsp.wg.domains.employ <- dcast(subset(ghsp.wg.domains.employ, employment != "unemployed" & variable.1 == "impaired"), SEX ~ variable)
 ghsp.wg.domains.employ <- ghsp.wg.domains.employ[complete.cases(ghsp.wg.domains.employ)]
-write.csv(ghsp.wg.overall.employ,"output/GHSP WG WA domains employment.csv", row.names = F)
+write.csv(ghsp.wg.domains.employ,"output/GHSP WG WA domains employment.csv", row.names = F)
 
 rm(list=c("ghsp.wg.cut","ghsp.wg.melt","ghsp.other.cut","ghsp.other.melt","ghsp.wg","ghsp.health","ghsp.hhr","ghsp.employ","ghsp.health.employ","ghsp.wg.domains","ghsp.wg.overall"))
