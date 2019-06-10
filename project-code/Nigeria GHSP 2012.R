@@ -1,4 +1,4 @@
-#TODO - employment and education disaggregation
+#TODO - education disaggregation
 
 required.packages <- c("reshape2","ggplot2","data.table","foreign")
 lapply(required.packages, require, character.only=T)
@@ -70,9 +70,9 @@ ghsp.wg$working.age <- "No"
 ghsp.wg$working.age[ghsp.wg$age.group>=4&ghsp.wg$age.group<=12] <- "Yes"
 
 #Split dichotomous disability from domains
-ghsp.wg.domains <- ghsp.wg[,c(1,2,3,4,13,7:12)]
+ghsp.wg.domains <- ghsp.wg[,c(1,2,3,4,13,5,9,11,6,7,12)]
 ghsp.wg.domains <- subset(ghsp.wg.domains, variable != "disabled")
-ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1,2,3,4,13,5,6,11,12)]
+ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1,2,3,4,13,10,8,7,12)]
 
 ghsp.wg.domains$impaired <- ghsp.wg.domains$`CANNOT DO`+ghsp.wg.domains$`YES, A LOT`
 ghsp.wg.domains$`not impaired` <- ghsp.wg.domains$`YES, SOME`+ghsp.wg.domains$`NO, NO DIFFICULTY`
