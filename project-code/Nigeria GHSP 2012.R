@@ -68,7 +68,7 @@ ghsp.wg <- as.data.frame(ghsp.wg)
 ghsp.wg[,9:15] <- sapply(ghsp.wg[,9:15], as.double)
 
 #Tidy columns
-ghsp.wg <- as.data.table(ghsp.wg[,c(1:8,10,14,15,12,9,11,13)])
+ghsp.wg <- as.data.table(ghsp.wg[,c(names(ghsp.wg)[1:8],"CANNOT DO","YES, A LOT","YES, SOME","NO, NO DIFFICULTY","Disabled","Not disabled","NA")])
 
 #Calculate percentages across rows
 ghsp.wg$count <- rowSums(ghsp.wg[,c(9:15)])
@@ -79,27 +79,30 @@ ghsp.wg$working.age <- "No"
 ghsp.wg$working.age[ghsp.wg$age.group>=4&ghsp.wg$age.group<=12] <- "Yes"
 
 #Split dichotomous disability from domains
-ghsp.wg.domains <- ghsp.wg[,c(1:13,16,17)]
+ghsp.wg.domains <- ghsp.wg[,c(1:12,15:17)]
 ghsp.wg.domains <- subset(ghsp.wg.domains, variable != "disabled")
-ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1:8,14,15,13,16,17)]
+ghsp.wg.overall <- subset(ghsp.wg, variable == "disabled")[,c(1:8,13:17)]
 
 #Define 'impaired' as CANNOT DO & YES, A LOT
 ghsp.wg.domains$impaired <- ghsp.wg.domains$`CANNOT DO`+ghsp.wg.domains$`YES, A LOT`
 ghsp.wg.domains$`not impaired` <- ghsp.wg.domains$`YES, SOME`+ghsp.wg.domains$`NO, NO DIFFICULTY`
 
+#Create dummy label for TOTAL
+totallabel <- as.data.frame("TOTAL")
+names(totallabel) <- "SEX"
 
 ###OUTPUTS###
-
 #OVERALL PREVALENCE RATE
 ##TODO
 
 #SHARE OF WORKING AGE POPULATION WHO ARE DISABLED, BY SEX
 ghsp.wg.overall.working <- ghsp.wg.overall[working.age=="Yes", .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(SEX)]
-ghsp.wg.overall.working <- ghsp.wg.overall.working[complete.cases(ghsp.wg.overall.working)]
+ghsp.wg.overall.working <- rbind(ghsp.wg.overall.working,cbind(totallabel,ghsp.wg.overall[working.age=="Yes", .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count))]))
 write.csv(ghsp.wg.overall.working,"output/GHSP WG WA overall.csv", row.names = F)
 
 #SHARE OF WORKING AGE POPULATION WHO ARE DISABLED, BY SEX AND DOMAIN
 ghsp.wg.domains.working <- ghsp.wg.domains[working.age=="Yes", .(impaired=sum(count*impaired)/sum(count),`not impaired`=sum(count*`not impaired`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(variable,SEX)]
+ghsp.wg.domains.working <- rbind(ghsp.wg.domains.working,cbind(totallabel,ghsp.wg.domains[working.age=="Yes", .(impaired=sum(count*impaired)/sum(count),`not impaired`=sum(count*`not impaired`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(variable)]))
 ghsp.wg.domains.working <- melt(ghsp.wg.domains.working, id.vars = c(1,2))
 ghsp.wg.domains.working <- dcast(subset(ghsp.wg.domains.working, variable.1 == "impaired"), SEX ~ variable)
 write.csv(ghsp.wg.domains.working,"output/GHSP WG WA domains.csv", row.names = F)
@@ -117,11 +120,11 @@ ghsp.wg.overall.employ <- subset(ghsp.wg.overall.employ, employment != "unemploy
 write.csv(ghsp.wg.overall.employ,"output/GHSP WG WA overall employment.csv", row.names = F)
 
 #EMPLOYMENT RATE FOR WORKING AGE PWDS, BY SEX AND DOMAIN
-ghsp.wg.domains.employ <- ghsp.wg.domains[working.age=="Yes", .(impaired=sum(count*impaired),not.impaired=sum(count*`not impaired`)),by=.(variable,employment,SEX)]
-ghsp.wg.domains.employ <- cbind(ghsp.wg.domains.employ[,2],ghsp.wg.domains.employ[, .(impaired=impaired/sum(impaired),not.impaired=not.impaired/sum(not.impaired)),by=.(SEX,variable)])
+ghsp.wg.domains.employ <- ghsp.wg.domains[working.age=="Yes", .(impaired=sum(count*impaired),not.impaired=sum(count*`not impaired`)),by=.(variable,SEX,employment)]
+ghsp.wg.domains.employ <- rbind(ghsp.wg.domains.employ,cbind(totallabel,ghsp.wg.domains[working.age=="Yes", .(impaired=sum(count*impaired),not.impaired=sum(count*`not impaired`)),by=.(variable,employment)]))
+ghsp.wg.domains.employ <- cbind(ghsp.wg.domains.employ$employment,ghsp.wg.domains.employ[, .(impaired=impaired/sum(impaired),not.impaired=not.impaired/sum(not.impaired)),by=.(variable,SEX)])
 ghsp.wg.domains.employ <- melt(ghsp.wg.domains.employ, id.vars=c(1:3))
-ghsp.wg.domains.employ <- dcast(subset(ghsp.wg.domains.employ, employment != "unemployed" & variable.1 == "impaired"), SEX ~ variable)
-ghsp.wg.domains.employ <- ghsp.wg.domains.employ[complete.cases(ghsp.wg.domains.employ)]
+ghsp.wg.domains.employ <- dcast(subset(ghsp.wg.domains.employ, (variable.1 == "impaired" & V1 == "employed")), SEX ~ variable)
 write.csv(ghsp.wg.domains.employ,"output/GHSP WG WA domains employment.csv", row.names = F)
 
-rm(list=c("ghsp.wg.cut","ghsp.wg.melt","ghsp.other.cut","ghsp.other.melt","ghsp.wg","ghsp.health","ghsp.hhr","ghsp.employ","ghsp.health.employ","ghsp.wg.domains","ghsp.wg.overall"))
+rm(list=c("totallabel","ghsp.wg.cut","ghsp.wg.melt","ghsp.other.cut","ghsp.other.melt","ghsp.wg","ghsp.health","ghsp.hhr","ghsp.employ","ghsp.health.employ","ghsp.wg.domains","ghsp.wg.overall"))
