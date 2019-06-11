@@ -5,6 +5,9 @@ lapply(required.packages, require, character.only=T)
 
 setwd("G:/My Drive/Work/GitHub/inclusion-works/")
 
+
+###DATA INPUT###
+
 #Pull post-harvest household roster, section 3a (employment) and section 4a (health)
 ghsp.hhr <- read.spss("project-data/NGA_2012_GHSP-W2_v02_M_SPSS/Post Harvest Wave 2/Household/sect1_harvestw2.sav", to.data.frame=T)
 names(ghsp.hhr) <- attributes(ghsp.hhr)[4]$variable.labels
@@ -13,6 +16,9 @@ names(ghsp.employ) <- attributes(ghsp.employ)[4]$variable.labels
 names(ghsp.employ)[43:66] <- paste(names(ghsp.employ)[43:66],"JOB 2")
 ghsp.health <- read.spss("project-data/NGA_2012_GHSP-W2_v02_M_SPSS/Post Harvest Wave 2/Household/sect4a_harvestw2.sav", to.data.frame=T)
 names(ghsp.health) <- attributes(ghsp.health)[4]$variable.labels
+
+
+###TRANSFORMATIONS###
 
 #Merge and convert to data.table
 ghsp.health <- merge(ghsp.hhr,ghsp.health, by.x=c("HOUSEHOLD IDENTIFICATION","LINE NO."),by.y=c("HOUSEHOLD IDENTIFICATION","INDIVIDUAL ID"))
@@ -91,9 +97,13 @@ ghsp.wg.domains$`not impaired` <- ghsp.wg.domains$`YES, SOME`+ghsp.wg.domains$`N
 totallabel <- as.data.frame("TOTAL")
 names(totallabel) <- "SEX"
 
+
 ###OUTPUTS###
+
 #OVERALL PREVALENCE RATE
-##TODO
+ghsp.wg.overall.all <- ghsp.wg.overall[, .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(SEX)]
+ghsp.wg.overall.all <- rbind(ghsp.wg.overall.all,cbind(totallabel,ghsp.wg.overall[, .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count))]))
+write.csv(ghsp.wg.overall.all,"output/GHSP WG all ages overall.csv", row.names = F)
 
 #SHARE OF WORKING AGE POPULATION WHO ARE DISABLED, BY SEX
 ghsp.wg.overall.working <- ghsp.wg.overall[working.age=="Yes", .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(SEX)]
@@ -113,10 +123,13 @@ ghsp.wg.sector.working <- ghsp.wg.overall[working.age=="Yes", .(disabled=sum(cou
 write.csv(ghsp.wg.state.working,"output/GHSP WG WA states.csv", row.names = F)
 
 #EMPLOYMENT RATE FOR WORKING AGE PWDS AND PWODS, BY SEX
-ghsp.wg.overall.employ <- ghsp.wg.overall[working.age=="Yes", .(disabled=sum(count*Disabled),not.disabled=sum(count*`Not disabled`)),by=.(employment,SEX)]
-ghsp.wg.overall.employ <- cbind(ghsp.wg.overall.employ[,1],ghsp.wg.overall.employ[, .(disabled=disabled/sum(disabled),not.disabled=not.disabled/sum(not.disabled)),by=SEX])
+ghsp.wg.overall.employ.1 <- ghsp.wg.overall[working.age=="Yes", .(disabled=sum(count*Disabled),not.disabled=sum(count*`Not disabled`)),by=.(employment,SEX)]
+ghsp.wg.overall.employ.1 <- cbind(ghsp.wg.overall.employ.1[,1],ghsp.wg.overall.employ.1[, .(disabled=disabled/sum(disabled),not.disabled=not.disabled/sum(not.disabled)),by=SEX])
+ghsp.wg.overall.employ.2 <- ghsp.wg.overall[working.age=="Yes", .(disabled=sum(count*Disabled),not.disabled=sum(count*`Not disabled`)),by=.(employment)]
+ghsp.wg.overall.employ.2 <- cbind(ghsp.wg.overall.employ.2[,1],totallabel,ghsp.wg.overall.employ.2[, .(disabled=disabled/sum(disabled),not.disabled=not.disabled/sum(not.disabled))])
+ghsp.wg.overall.employ <- rbind(ghsp.wg.overall.employ.1,ghsp.wg.overall.employ.2)
 ghsp.wg.overall.employ <- ghsp.wg.overall.employ[complete.cases(ghsp.wg.overall.employ)]
-ghsp.wg.overall.employ <- subset(ghsp.wg.overall.employ, employment != "unemployed")
+ghsp.wg.overall.employ <- subset(ghsp.wg.overall.employ, employment != "unemployed")[,-1]
 write.csv(ghsp.wg.overall.employ,"output/GHSP WG WA overall employment.csv", row.names = F)
 
 #EMPLOYMENT RATE FOR WORKING AGE PWDS, BY SEX AND DOMAIN
