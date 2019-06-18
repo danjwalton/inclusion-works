@@ -16,7 +16,10 @@ names(ghsp.employ) <- attributes(ghsp.employ)[4]$variable.labels
 names(ghsp.employ)[43:66] <- paste(names(ghsp.employ)[43:66],"JOB 2")
 ghsp.health <- read.spss("project-data/NGA_2012_GHSP-W2_v02_M_SPSS/Post Harvest Wave 2/Household/sect4a_harvestw2.sav", to.data.frame=T)
 names(ghsp.health) <- attributes(ghsp.health)[4]$variable.labels
+ghsp.hha <- read.spss("project-data/NGA_2012_GHSP-W2_v02_M_SPSS/Post Harvest Wave 2/Household/secta_harvestw2.sav", to.data.frame=T)
 
+ghsp.hha <- ghsp.hha[,c(1,8)]
+names(ghsp.hha) <- c("HOUSEHOLD IDENTIFICATION","SAMPLE.WEIGHT")
 
 ###TRANSFORMATIONS###
 
@@ -40,19 +43,19 @@ ghsp.health.employ$employed <- "unemployed"
 ghsp.health.employ$employed[ghsp.health.employ$employment != "unemployed" | is.na(ghsp.health.employ$employment)] <- "employed"
 ghsp.health.employ$employed[is.na(ghsp.health.employ$employment)] <- NA
 
+#Join weights
+ghsp.health.employ <- merge(ghsp.health.employ,ghsp.hha, by = "HOUSEHOLD IDENTIFICATION")
+ghsp.health.employ <- ghsp.health.employ[which(!is.na(ghsp.health.employ$SAMPLE.WEIGHT))]
+
 #Separate two sets of impairment questions - EMPLOYED INDICATOR
-ghsp.wg.cut <- ghsp.health.employ[,c(8,111,113,115,117,119,121,228,230)]
-ghsp.other.cut <- ghsp.health.employ[,c(8,106:110,228,230)]
-names(ghsp.wg.cut)[9] <- "employment"
-names(ghsp.other.cut)[8] <- "employment"
+ghsp.wg.cut <- ghsp.health.employ[,c(3:6,8,111,113,115,117,119,121,228,230,231)]
+ghsp.other.cut <- ghsp.health.employ[,c(3:6,8,106:110,228,230,231)]
+names(ghsp.wg.cut)[13] <- "employment"
+names(ghsp.other.cut)[12] <- "employment"
 
 ##Separate two sets of impairment questions - EMPLOYMENT INDICATOR
 #ghsp.wg.cut <- ghsp.health.employ[,c(8,111,113,115,117,119,121,228,229)]
 #ghsp.other.cut <- ghsp.health.employ[,c(8,106:110,228,229)]
-
-#Add geographical disaggreagation
-ghsp.wg.cut <- cbind(ghsp.health.employ[,3:6], ghsp.wg.cut)
-ghsp.other.cut <- cbind(ghsp.health.employ[,3:6], ghsp.other.cut)
 
 #Replace "CANNOT SEE" and "CANNOT HEAR" responses with "CANNOT DO"
 levels(ghsp.wg.cut$`DO YOU HAVE DIFFICULTY SEEING, EVEN IF YOU ARE WEARING GLASSES?`)[match("CANNOT SEE", levels(ghsp.wg.cut$`DO YOU HAVE DIFFICULTY SEEING, EVEN IF YOU ARE WEARING GLASSES?`))] <- "CANNOT DO"
@@ -64,17 +67,14 @@ ghsp.wg.cut[which(rowSums(ghsp.wg.cut=="CANNOT DO"|ghsp.wg.cut=="YES, A LOT",na.
 ghsp.wg.cut[which(rowSums(is.na(ghsp.wg.cut),na.rm=T)>0L)]$disabled <- NA
 
 #Melt and cast
-ghsp.wg.melt <- melt(ghsp.wg.cut, id.vars = c(1:5,12:13), na.rm=F)
-ghsp.other.melt <- melt(ghsp.other.cut, id.vars = c(1:5,11,12), na.rm=F)
-ghsp.wg <- dcast(ghsp.wg.melt, variable + age.group + SEX + employment + ZONE.x + `STATE CODE.x` + `LGA CODE.x` + SECTOR.x ~ value, fun=length)
-ghsp.other <- dcast(ghsp.other.melt, variable + age.group + SEX + employment + ZONE.x + `STATE CODE.x` + `LGA CODE.x` + SECTOR.x ~ value, fun=length)
- 
-#Revert to data.frame as data.table doesn't like being coerced by sapply
-ghsp.wg <- as.data.frame(ghsp.wg)
-ghsp.wg[,9:15] <- sapply(ghsp.wg[,9:15], as.double)
+ghsp.wg.melt <- melt(ghsp.wg.cut, id.vars = c(1:5,12:14), na.rm=F)
+ghsp.other.melt <- melt(ghsp.other.cut, id.vars = c(1:5,11:13), na.rm=F)
+ghsp.wg <- dcast.data.table(ghsp.wg.melt, variable + age.group + SEX + employment + ZONE.x + `STATE CODE.x` + `LGA CODE.x` + SECTOR.x ~ value, fun=sum, value.var="SAMPLE.WEIGHT")
+ghsp.other <- dcast.data.table(ghsp.other.melt, variable + age.group + SEX + employment + ZONE.x + `STATE CODE.x` + `LGA CODE.x` + SECTOR.x ~ value, fun=sum, value.var="SAMPLE.WEIGHT")
 
 #Tidy columns
-ghsp.wg <- as.data.table(ghsp.wg[,c(names(ghsp.wg)[1:8],"CANNOT DO","YES, A LOT","YES, SOME","NO, NO DIFFICULTY","Disabled","Not disabled","NA")])
+order <- c(names(ghsp.wg)[1:8],"CANNOT DO","YES, A LOT","YES, SOME","NO, NO DIFFICULTY","Disabled","Not disabled","NA")
+ghsp.wg <- ghsp.wg[,..order]
 
 #Calculate percentages across rows
 ghsp.wg$count <- rowSums(ghsp.wg[,c(9:15)])
@@ -140,4 +140,4 @@ ghsp.wg.domains.employ <- melt(ghsp.wg.domains.employ, id.vars=c(1:3))
 ghsp.wg.domains.employ <- dcast(subset(ghsp.wg.domains.employ, (variable.1 == "impaired" & V1 == "employed")), SEX ~ variable)
 write.csv(ghsp.wg.domains.employ,"output/GHSP WG WA domains employment.csv", row.names = F)
 
-rm(list=c("totallabel","ghsp.wg.cut","ghsp.wg.melt","ghsp.other.cut","ghsp.other.melt","ghsp.wg","ghsp.health","ghsp.hhr","ghsp.employ","ghsp.health.employ","ghsp.wg.domains","ghsp.wg.overall"))
+rm(list=c("order","totallabel","ghsp.hha","ghsp.wg.cut","ghsp.wg.melt","ghsp.other.cut","ghsp.other.melt","ghsp.wg","ghsp.health","ghsp.hhr","ghsp.employ","ghsp.health.employ","ghsp.wg.domains","ghsp.wg.overall"))
