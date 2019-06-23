@@ -29,7 +29,7 @@ ghsp.health <- as.data.table(ghsp.health)
 ghsp.health.employ <- merge(ghsp.health,ghsp.employ,by.x=c("HOUSEHOLD IDENTIFICATION","LINE NO."),by.y=c("HOUSEHOLD IDENTIFICATION","INDIVIDUAL ID"))
 
 #Create age groups of 5 year intervals
-ghsp.health.employ$age.group <- floor(ghsp.health.employ$`AGE IN COMPLETED YEARS`/5)
+ghsp.health.employ$age.group <- ceiling(ghsp.health.employ$`AGE IN COMPLETED YEARS`/5)
 
 #Create employment indicator - this hierachical.. may need to discuss what terms
 ghsp.health.employ$employment <- "unemployed"
@@ -82,7 +82,7 @@ ghsp.wg[,9:15] <- ghsp.wg[,9:15]/rowSums(ghsp.wg[,16])
 
 #Assign working-age column for those between 15-64
 ghsp.wg$working.age <- "No"
-ghsp.wg$working.age[ghsp.wg$age.group>=4&ghsp.wg$age.group<=12] <- "Yes"
+ghsp.wg$working.age[ghsp.wg$age.group>=4&ghsp.wg$age.group<=13] <- "Yes"
 
 #Split dichotomous disability from domains
 ghsp.wg.domains <- ghsp.wg[,c(1:12,15:17)]
