@@ -131,7 +131,7 @@ data.overall.employ <- rbind(data.overall.employ1,data.overall.employ2)
 data.overall.employ <- melt(data.overall.employ, c(1:3))
 data.overall.employ <- data.overall.employ[complete.cases(data.overall.employ)]
 data.overall.employ.edu <- dcast.data.table(data.overall.employ[employment=="employed" & sex.lab=="Total"], variable ~ education)
-order <- c("No education or preschool","Primary","Secondary","Higher")
+order <- c("variable","No education or preschool","Primary","Secondary","Higher")
 data.overall.employ.edu <- data.overall.employ.edu[,..order]
 fwrite(data.overall.employ.edu, "output/BGD CEN WA education employment.csv")
 
