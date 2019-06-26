@@ -10,7 +10,7 @@ data$age.group[which(data$AGE != 999)] <- ceiling(data$AGE/5)
 
 data$employment <- "unemployed"
 data$employment[which(data$BD2011A_EMPSTAT == 1)] <- "employed"
-#data$employment[which(data$BD2011A_EMPSTAT == 3)] <- "employed"
+#data$employment[which(data$BD2011A_EMPSTAT == 3)] <- "employed" #This is house work
 data$employment[which(data$BD2011A_EMPSTAT == 9)] <- NA
 
 labs <- attributes(data$BD2011A_DISAB)$labels
@@ -26,7 +26,7 @@ data$education <- "No education or preschool"
 data$education[which(data$BD2011A_EDATTAN >= 5)] <- "Primary"
 data$education[which(data$BD2011A_EDATTAN >= 10)] <- "Secondary"
 data$education[which(data$BD2011A_EDATTAN >= 12)] <- "Higher"
-data$education[which(data$BD2011A_EDATTAN == 99 | data$AGE < 21)] <- NA
+data$education[which(data$BD2011A_EDATTAN == 99 | data$AGE < 15)] <- NA
 
 data$sex.lab <- "Male"
 data$sex.lab[which(data$SEX == 2)] <- "Female"
@@ -56,6 +56,7 @@ names(totallabel) <- "sex.lab"
 #OVERALL PREVALENCE RATE
 data.overall.all <- data.overall[, .(Disabled = sum(Disabled*count)/sum(count), `Not disabled` = sum(`Not disabled`*count)/sum(count)), by=.(sex.lab)]
 data.overall.all <- rbind(data.overall.all, cbind(totallabel, data.overall[, .(Disabled = sum(Disabled*count)/sum(count), `Not disabled` = sum(`Not disabled`*count)/sum(count))]))
+fwrite(data.overall.working, "output/BGD CEN all ages overall.csv")
 
 #SHARE OF WORKING AGE POPULATION WHO ARE DISABLED, BY SEX
 data.overall.working <- data.overall[working.age=="Yes", .(Disabled = sum(Disabled*count)/sum(count),
@@ -64,6 +65,7 @@ data.overall.working <- rbind(data.overall.working,
                               cbind(totallabel,
                                     data.overall[working.age=="Yes", .(Disabled = sum(Disabled*count)/sum(count),
                                                                        `Not disabled` = sum(`Not disabled`*count)/sum(count))]))
+fwrite(data.overall.working, "output/BGD CEN WA overall.csv")
 
 #SHARE OF WORKING AGE POPULATION WHO ARE DISABLED, BY SEX AND DOMAIN
 data.domains.working <- data.domains[working.age=="Yes",
@@ -86,11 +88,22 @@ data.domains.working <- rbind(data.domains.working,
                                                    Vision = sum(Vision*count)/sum(count))]
                                     )
                               )
+fwrite(data.domains.working, "output/BGD CEN WA domains.csv")
 
-# #WORKING AGE POPULATION WHO ARE DISABLED, BY GEOGRAPHY
-# data.state.working <- data.overall[working.age=="Yes", .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(`STATE CODE.x`)]
-# data.sector.working <- data.overall[working.age=="Yes", .(disabled=sum(count*Disabled)/sum(count),`not disabled`=sum(count*`Not disabled`)/sum(count),na=sum(count*`NA`)/sum(count)), by=.(`SECTOR.x`)]
-# write.csv(data.state.working,"output/GHSP WG WA states.csv", row.names = F)
+#WORKING AGE POPULATION WHO ARE DISABLED, BY GEOGRAPHY AND DOMAIN
+data.overall.geog <- data.overall[working.age=="Yes", .(Disabled = sum(Disabled*count)/sum(count),
+                                                           `Not disabled` = sum(`Not disabled`*count)/sum(count)), by=.(region)]
+data.domains.geog <- data.domains[working.age=="Yes",
+                                     .(Autistic = sum(Autistic*count)/sum(count),
+                                       Hearing = sum(Hearing*count)/sum(count),
+                                       Mental = sum(Mental*count)/sum(count),
+                                       Physical = sum(Physical*count)/sum(count),
+                                       Speech = sum(Speech*count)/sum(count),
+                                       Vision = sum(Vision*count)/sum(count)),
+                                     by=.(region)]
+
+data.geog <- cbind(data.domains.geog,data.overall.geog[,-1])
+fwrite(data.geog, "output/BGD CEN WA regions.csv")
 
 #EMPLOYMENT RATE FOR WORKING AGE PWDS AND PWODS, BY SEX AND EDUCATION LEVEL
 data.overall.employ1 <- data.overall[working.age=="Yes",
@@ -118,6 +131,10 @@ data.overall.employ <- rbind(data.overall.employ1,data.overall.employ2)
 data.overall.employ <- melt(data.overall.employ, c(1:3))
 data.overall.employ <- data.overall.employ[complete.cases(data.overall.employ)]
 data.overall.employ.edu <- dcast.data.table(data.overall.employ[employment=="employed" & sex.lab=="Total"], variable ~ education)
+order <- c("No education or preschool","Primary","Secondary","Higher")
+data.overall.employ.edu <- data.overall.employ.edu[,..order]
+fwrite(data.overall.employ.edu, "output/BGD CEN WA education employment.csv")
+
 
 data.overall.employ1 <- data.overall[working.age=="Yes",
                                      .(Disabled = sum(Disabled*count),
@@ -144,6 +161,8 @@ data.overall.employ <- rbind(data.overall.employ1,data.overall.employ2)
 data.overall.employ <- melt(data.overall.employ, c(1:2))
 data.overall.employ <- data.overall.employ[complete.cases(data.overall.employ)]
 data.overall.employ.sex <- dcast.data.table(data.overall.employ[employment=="employed"], variable ~ sex.lab)
+fwrite(data.overall.employ.sex, "output/BGD CEN WA overall employment.csv")
+
 
 #EMPLOYMENT RATE FOR WORKING AGE PWDS, BY SEX AND DOMAIN
 data.domains.employ1 <- data.domains[working.age=="Yes",
@@ -187,4 +206,4 @@ data.domains.employ <- rbind(data.domains.employ1,data.domains.employ2)
 data.domains.employ <- melt(data.domains.employ, c(1:2))
 data.domains.employ <- data.domains.employ[complete.cases(data.domains.employ)]
 data.domains.employ.sex <- dcast.data.table(data.domains.employ[employment=="employed"], variable ~ sex.lab)
-
+fwrite(data.domains.employ.sex, "output/BGD CEN WA domains employment.csv")
