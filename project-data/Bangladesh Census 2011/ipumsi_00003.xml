@@ -1,0 +1,3104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?xml-stylesheet type="text/xsl" href="ipums-ddi-xslt.xsl"?>
+<codeBook xmlns="ddi:codebook:2_5" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="ddi:codebook:2_5 http://www.ddialliance.org/Specification/DDI-Codebook/2.5/XMLSchema/codebook.xsd" version="2.5" ID="ddi2-146377_ipumsi_00003.dat-international.ipums.org">
+  <docDscr>
+    <citation>
+      <titlStmt>
+        <titl>Codebook for an IPUMS International Data Extract</titl>
+        <subTitl>DDI 2.5 metadata describing the extract file  'ipumsi_00003.dat'</subTitl>
+        <IDNo>ddi2-146377_ipumsi_00003.dat-international.ipums.org</IDNo>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2019-06-26">June 26, 2019</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact affiliation="University of Minnesota" URI="http://pop.umn.edu">Minnesota Population Center</contact>
+      </distStmt>
+    </citation>
+  </docDscr>
+  <stdyDscr>
+    <citation>
+      <titlStmt>
+        <titl>User Extract ipumsi_00003.dat</titl>
+      </titlStmt>
+      <rspStmt>
+        <AuthEnty affiliation="University of Minnesota">Minnesota Population Center</AuthEnty>
+      </rspStmt>
+      <prodStmt>
+        <producer abbr="MPC" affiliation="University of Minnesota" role="Documentation">Minnesota Population Center</producer>
+        <prodDate date="2019-06-26">June 26, 2019</prodDate>
+        <prodPlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</prodPlac>
+      </prodStmt>
+      <distStmt>
+        <contact affiliation="University of Minnesota" URI="http://pop.umn.edu">Minnesota Population Center</contact>
+      </distStmt>
+      <serStmt>
+        <serName abbr="ipumsi">IPUMS-International</serName>
+        <serInfo>DOI:10.18128/D020.V7.1</serInfo>
+      </serStmt>
+      <verStmt>
+        <version date="2019-06-26"/>
+      </verStmt>
+    </citation>
+    <stdyInfo>
+      <subject>
+        <topcClas vocab="IPUMS">Technical Household Variables -- HOUSEHOLD</topcClas>
+        <topcClas vocab="IPUMS">Geography: IPUMS-I, IPUMS-DHS Variables -- HOUSEHOLD</topcClas>
+        <topcClas vocab="IPUMS">Geography: A-E Variables -- HOUSEHOLD</topcClas>
+        <topcClas vocab="IPUMS">Technical Person Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Demographic Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Disability Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Education Variables -- PERSON</topcClas>
+        <topcClas vocab="IPUMS">Work Variables -- PERSON</topcClas>
+      </subject>
+      <sumDscr ID="sdatref-2650">
+        <timePrd event="single" date="2011">2011</timePrd>
+        <nation abbr="bd">Bangladesh</nation>
+      </sumDscr>
+      <notes><![CDATA[Additional notes on a sample that is part of this study:  Bangladesh 2011\n            Density of the full data file:  5.0%
+            Density of this extract: 5.0%
+]]></notes>
+    </stdyInfo>
+    <dataAccs>
+      <useStmt>
+        <confDec required="yes"><![CDATA[IPUMS-International distributes integrated microdata of individuals and households only by agreement of collaborating national statistical offices and under the strictest of confidence. Before data may be distributed to an individual researcher, an electronic license agreement must be signed and approved.
+
+To gain access to the data, a researcher must agree to the following:
+
+(1) Implement security measures to prevent unauthorized access to census microdata. Under IPUMS-International agreements with collaborating agencies, redistribution of the data to third parties is prohibited.
+
+(2) Use the microdata for the exclusive purposes of scholarly research and education. Researchers must explicitly agree to not use microdata acquired for any commercial or income-generating venture.
+
+(3) Maintain the confidentiality of persons, households, and other entities. Any attempt to ascertain the identity of persons or households from the microdata is prohibited. Alleging that a person or household has been identified is also prohibited.
+
+(4) Report all publications based on these data to IPUMS-International, which will in turn pass the information on to the relevant national statistical agencies.
+
+Once a project is approved, a password is issued and data may be acquired through the Internet. Penalties for violating the license include: revocation of the license, recall of all microdata acquired, filing of a motion of censure to the appropriate professional organizations, and civil prosecution under the relevant national or international statutes.
+
+These safeguards mirror the principles from the Joint ECE/Eurostat Work Session on Statistical Data Confidentiality. Employees of the Minnesota Population Center who work with the census microdata to produce the harmonized database also sign agreements to respect the confidentiality of the data.
+
+IPUMS-International works with each country's statistical office to minimize the risk of disclosure of respondent information. The details of the confidentiality protections vary across countries, but in all cases, names and detailed geographic information are suppressed and top-codes are imposed on variables such as income that might identify specific persons. In addition, IPUMS-International uses a variety of technical procedures to enhance confidentiality protection. These include the following:
+
+  
+(1) Swapping an undisclosed fraction of records from one administrative district to another to make positive identification of individuals impossible.
+
+(2) Randomizing the placement of households within districts to disguise the order in which individuals were enumerated or the data processed.
+
+(3) Aggregating codes of sensitive characteristics (e.g., grouping together very small ethnic categories)
+
+(4) Top- and bottom-coding continuous variables to prevent identification of extreme cases.
+
+The safety record for public-use census microdata is apparently perfect. In almost four decades of use, there has not been a single verified breach of statistical confidentiality. The measures implemented by the IPUMS-International are designed to extend this record.]]></confDec>
+        <contact affiliation="Minnesota Population Center" URI="http://international.ipums.org">IPUMS International</contact>
+        <citReq><![CDATA[Minnesota Population Center. Integrated Public Use Microdata Series, International: Version 7.1 [dataset]. Minneapolis, MN: IPUMS, 2018. https://doi.org/10.18128/D020.V7.1
+
+Researchers should also acknowledge the statistical agency that originally produced the data.
+
+
+The licensing agreement for use of IPUMS-International data requires that users supply IPUMS-International with the title and full citation for any publications, research reports, or educational materials making use of the data or documentation.
+
+Copies of such materials are also gratefully received at ipums@umn.edu.
+
+Printed matter should be sent to:
+IPUMS-International
+Minnesota Population Center
+University of Minnesota
+50 Willey Hall
+225 19th Avenue South
+Minneapolis, MN 55455
+]]></citReq>
+        <conditions><![CDATA[An adapted version of the dataset, harmonized for international comparability, is available from IPUMS-International (https://international.ipums.org/international/) under the following conditions:
+
+  
+IPUMS-International distributes integrated microdata of individuals and households only by agreement of collaborating national statistical offices and under the strictest of confidence. Before data may be distributed to an individual researcher, an electronic license agreement must be signed and approved.  To gain access to the data, a researcher must agree to the following:
+
+(1) Implement security measures to prevent unauthorized access to census microdata. Under IPUMS-International agreements with collaborating agencies, redistribution of the data to third parties is prohibited.
+
+(2) Use the microdata for the exclusive purposes of scholarly research and education. Researchers must explicitly agree to not use microdata acquired for any commercial or income-generating venture.
+
+(3) Maintain the confidentiality of persons, households, and other entities. Any attempt to ascertain the identity of persons or households from the microdata is prohibited. Alleging that a person or household has been identified is also prohibited.
+
+(4) Report all publications based on these data to IPUMS-International, which will in turn pass the information on to the relevant national statistical agencies.
+
+Once a project is approved, a password is issued and data may be acquired through the Internet. Penalties for violating the license include: revocation of the license, recall of all microdata acquired, filing of a motion of censure to the appropriate professional organizations, and civil prosecution under the relevant national or international statutes.
+
+These safeguards mirror the principles from the Joint ECE/Eurostat Work Session on Statistical Data Confidentiality. Employees of the Minnesota Population Center who work with the census microdata to produce the harmonized database also sign agreements to respect the confidentiality of the data.
+]]></conditions>
+        <disclaimer>The user of the data acknowledges that the original collector of the data, the authorized distributor of the data, and the relevant funding agency bear no responsibility for use of the data or for interpretations or inferences based upon such uses.</disclaimer>
+      </useStmt>
+    </dataAccs>
+    <notes><![CDATA[User-provided description:  Geographic]]></notes>
+    <notes>This extract is a revision of the user's previous extract, number 2.</notes>
+  </stdyDscr>
+  <fileDscr ID="ExtractData">
+    <fileTxt>
+      <fileName>ipumsi_00003.dat</fileName>
+      <fileCont>Microdata records</fileCont>
+      <fileStrc type="rectangular">
+      </fileStrc>
+      <fileType charset="ISO-8859-1">ISO-8859-1 data file</fileType>
+      <format>fixed length fields</format>
+      <filePlac>Minnesota Population Center, 50 Willey Hall, 225 - 19th Avenue South, Minneapolis, MN 55455</filePlac>
+    </fileTxt>
+  </fileDscr>
+  <dataDscr>
+    <var ID="HHWT" files="ExtractData" name="HHWT" intrvl="contin" dcml="2">
+      <location StartPos="1" width="8" EndPos="8"/>
+      <labl>Household weight</labl>
+      <txt><![CDATA[HHWT indicates the number of households in the population represented by the household in the sample.
+
+For the samples that are truly weighted (see the comparability discussion), HHWT must be used to yield accurate household-level statistics.
+
+NOTE: HHWT has 2 implied decimal places.  That is, the last two digits of the eight-digit variable are decimal digits, but there is no actual decimal in the data.]]></txt>
+      <codInstr><![CDATA[HHWT is an 8-digit numeric variable with 2 implied decimal places. See the variable description.]]></codInstr>
+      <concept vocab="IPUMS">Technical Household Variables -- HOUSEHOLD</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="DHS_IPUMSI_BD" files="ExtractData" name="DHS_IPUMSI_BD" intrvl="discrete" dcml="0">
+      <location StartPos="9" width="1" EndPos="9"/>
+      <labl>DHS-IPUMS-I Bangladesh regions, 1991-2014 [consistent boundaries, GIS]</labl>
+      <txt><![CDATA[DHS_IPUMSI_BD provides geographic codes for Bangladesh that match those in the DHS  [URL omitted from DDI.] and IPUMS-International databases. This variable can be used to link contextual area data from IPUMS-DHS to IPUMS-International or vice versa. The codes in DHS_IPUMSI_BD indicate the major administrative unit in which the household was enumerated or surveyed. 
+GIS shapefiles for Bangladesh can be downloaded here [URL omitted from DDI.].]]></txt>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Barisal</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Chittagong and Sylhet</labl>
+      </catgry>
+      <catgry>
+        <catValu>3</catValu>
+        <labl>Dhaka</labl>
+      </catgry>
+      <catgry>
+        <catValu>4</catValu>
+        <labl>Khulna</labl>
+      </catgry>
+      <catgry>
+        <catValu>5</catValu>
+        <labl>Rajshahi and Rangpur</labl>
+      </catgry>
+      <concept vocab="IPUMS">Geography: IPUMS-I, IPUMS-DHS Variables -- HOUSEHOLD</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="BD2011A_UPAZILA" files="ExtractData" name="BD2011A_UPAZILA" intrvl="discrete" dcml="0">
+      <location StartPos="10" width="6" EndPos="15"/>
+      <labl>Upazila/thana</labl>
+      <qstn><qstnLit><![CDATA[
+[Bangladesh 2011 enumeration form - short version.]
+
+
+
+Identification (name / geo-code)
+
+____ _ _ Division 
+____ _ _ District 
+____ _ _ [Upazila] or [Thana]
+____ _ _ Union/Ward
+____ _ _ _ [Mauza] or [Mahalla]
+____ _ _ Village
+____ _ _ Enumeration area no.
+
+
+]]></qstnLit><ivuInstr><![CDATA[
+Ques-3.2 Procedure of Filling out the Tally sheet
+The procedure of filling out the tally sheet will be taught to you from 2:30 pm to 3:00 pm. There are three components of the tally sheet.
+(1) The first component is for the identification of the enumeration area;
+(2) The second component is for the summary of the households and population; and
+(3) The third component is for the identification of the enumerator, supervisor, zonal officer and the person engaged for inventory.
+1st component is for the Identification of the Enumration Area:
+Enter the geo-code for the division, zila, upazila/thana/union/ward, mauza/mahallah and village where the enumeration area is located. At last enter the no. of enumeration area. One thing must keep in memory that in case of municipal area 00 will be entered for vilaages. 
+2nd component is for the summary of the household and population (including inventory of census books): To be made for every filled in census books:
+Count from the fill out Questionnaire books out of total households enter the number of Dwelling Household in the check box of 1st line, number of institutional households in the check box of second line, number of other households in the check box of third line and the number of total households in check box of fourth line. In the same way out of total population count the number of male population and enter the number in the check box of first line, number of female population in the check box of second line and number of total population in the check box of third line in English.
+Enter the appropriate code in the check box for RMO code. Enter [1] of [1] for census books if only one census book is filled out for an enumeration area. Enter [1] of  [2] in the tally sheet of the 1st book  and [2] of [2] for the 2nd book if two census books are filled out for an enumeration area.    
+3rd component is for the identification of Enumerator, Supervisor, Zonal Officer and the person responsible for making inventory:
+Enter name of the enumerator in the 1st line and then enter cross in the male box if the enumrator is male and cross in the female box if the enumerator is female and fill out the blank box for number from the number given in the appointment card. Similarly the 2nd line is for the supervisor. In the 3rd line enter the name of the zonal officer, sex, number and signature and in the fourth line name of the inventor, sex, number and signature.
+N. B.: For each and every filled in census books tally sheet must be filled out independently for every enumeration area and both the two tally sheets of every filled in census books must be filled out. 
+]]></ivuInstr></qstn>
+      <universe clusion="I">All households</universe>
+      <txt><![CDATA[This variable indicates the Upazila/thana of the household.]]></txt>
+      <catgry>
+        <catValu>100409</catValu>
+        <labl>Amtali</labl>
+      </catgry>
+      <catgry>
+        <catValu>100419</catValu>
+        <labl>Bamna</labl>
+      </catgry>
+      <catgry>
+        <catValu>100428</catValu>
+        <labl>Barguna Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>100447</catValu>
+        <labl>Betagi</labl>
+      </catgry>
+      <catgry>
+        <catValu>100485</catValu>
+        <labl>Patharghata</labl>
+      </catgry>
+      <catgry>
+        <catValu>100602</catValu>
+        <labl>Agailjhara</labl>
+      </catgry>
+      <catgry>
+        <catValu>100603</catValu>
+        <labl>Babuganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>100607</catValu>
+        <labl>Bakerganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>100610</catValu>
+        <labl>Banaripara</labl>
+      </catgry>
+      <catgry>
+        <catValu>100632</catValu>
+        <labl>Gaurnadi</labl>
+      </catgry>
+      <catgry>
+        <catValu>100636</catValu>
+        <labl>Hizla</labl>
+      </catgry>
+      <catgry>
+        <catValu>100651</catValu>
+        <labl>Barisal Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>100662</catValu>
+        <labl>Mehendiganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>100669</catValu>
+        <labl>Muladi</labl>
+      </catgry>
+      <catgry>
+        <catValu>100694</catValu>
+        <labl>Wazirpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>100918</catValu>
+        <labl>Bhola Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>100921</catValu>
+        <labl>Burhanuddin</labl>
+      </catgry>
+      <catgry>
+        <catValu>100925</catValu>
+        <labl>Char Fasson</labl>
+      </catgry>
+      <catgry>
+        <catValu>100929</catValu>
+        <labl>Daulat Khan</labl>
+      </catgry>
+      <catgry>
+        <catValu>100954</catValu>
+        <labl>Lalmohan</labl>
+      </catgry>
+      <catgry>
+        <catValu>100965</catValu>
+        <labl>Manpura</labl>
+      </catgry>
+      <catgry>
+        <catValu>100991</catValu>
+        <labl>Tazumuddin</labl>
+      </catgry>
+      <catgry>
+        <catValu>104240</catValu>
+        <labl>Jhalokati Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>104243</catValu>
+        <labl>Kanthalia</labl>
+      </catgry>
+      <catgry>
+        <catValu>104273</catValu>
+        <labl>Nalchity</labl>
+      </catgry>
+      <catgry>
+        <catValu>104284</catValu>
+        <labl>Rajapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>107838</catValu>
+        <labl>Bauphal</labl>
+      </catgry>
+      <catgry>
+        <catValu>107852</catValu>
+        <labl>Dashmina</labl>
+      </catgry>
+      <catgry>
+        <catValu>107855</catValu>
+        <labl>Dumki</labl>
+      </catgry>
+      <catgry>
+        <catValu>107857</catValu>
+        <labl>Galachipa</labl>
+      </catgry>
+      <catgry>
+        <catValu>107866</catValu>
+        <labl>Kala Para</labl>
+      </catgry>
+      <catgry>
+        <catValu>107876</catValu>
+        <labl>Mirzaganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>107895</catValu>
+        <labl>Patuakhali Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>107914</catValu>
+        <labl>Bhandaria</labl>
+      </catgry>
+      <catgry>
+        <catValu>107947</catValu>
+        <labl>Kawkhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>107958</catValu>
+        <labl>Mathbaria</labl>
+      </catgry>
+      <catgry>
+        <catValu>107976</catValu>
+        <labl>Nazirpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>107980</catValu>
+        <labl>Pirojpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>107987</catValu>
+        <labl>Nesarabad (Swarupkati)</labl>
+      </catgry>
+      <catgry>
+        <catValu>107990</catValu>
+        <labl>Zianagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>200304</catValu>
+        <labl>Alikadam</labl>
+      </catgry>
+      <catgry>
+        <catValu>200314</catValu>
+        <labl>Bandarban Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>200351</catValu>
+        <labl>Lama</labl>
+      </catgry>
+      <catgry>
+        <catValu>200373</catValu>
+        <labl>Naikhongchhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>200389</catValu>
+        <labl>Rowangchhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>200391</catValu>
+        <labl>Ruma</labl>
+      </catgry>
+      <catgry>
+        <catValu>200395</catValu>
+        <labl>Thanchi</labl>
+      </catgry>
+      <catgry>
+        <catValu>201202</catValu>
+        <labl>Akhaura</labl>
+      </catgry>
+      <catgry>
+        <catValu>201204</catValu>
+        <labl>Banchharampur</labl>
+      </catgry>
+      <catgry>
+        <catValu>201207</catValu>
+        <labl>Bijoynagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201213</catValu>
+        <labl>Brahmanbaria Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201233</catValu>
+        <labl>Ashuganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>201263</catValu>
+        <labl>Kasba</labl>
+      </catgry>
+      <catgry>
+        <catValu>201285</catValu>
+        <labl>Nabinagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201290</catValu>
+        <labl>Nasirnagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201294</catValu>
+        <labl>Sarail</labl>
+      </catgry>
+      <catgry>
+        <catValu>201322</catValu>
+        <labl>Chandpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201345</catValu>
+        <labl>Faridganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>201347</catValu>
+        <labl>Haim Char</labl>
+      </catgry>
+      <catgry>
+        <catValu>201349</catValu>
+        <labl>Hajiganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>201358</catValu>
+        <labl>Kachua</labl>
+      </catgry>
+      <catgry>
+        <catValu>201376</catValu>
+        <labl>Matlab</labl>
+      </catgry>
+      <catgry>
+        <catValu>201379</catValu>
+        <labl>Uttar Matlab</labl>
+      </catgry>
+      <catgry>
+        <catValu>201395</catValu>
+        <labl>Shahrasti</labl>
+      </catgry>
+      <catgry>
+        <catValu>201504</catValu>
+        <labl>Anowara</labl>
+      </catgry>
+      <catgry>
+        <catValu>201506</catValu>
+        <labl>Bayejid Bostami Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201508</catValu>
+        <labl>Banshkhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>201510</catValu>
+        <labl>Bakalia Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201512</catValu>
+        <labl>Boalkhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>201518</catValu>
+        <labl>Chandanaish</labl>
+      </catgry>
+      <catgry>
+        <catValu>201519</catValu>
+        <labl>Chandgaon Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201520</catValu>
+        <labl>Chittagong Port Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201528</catValu>
+        <labl>Double Mooring Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201533</catValu>
+        <labl>Fatikchhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>201535</catValu>
+        <labl>Halishahar Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201537</catValu>
+        <labl>Hathazari</labl>
+      </catgry>
+      <catgry>
+        <catValu>201541</catValu>
+        <labl>Kotwali Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201543</catValu>
+        <labl>Khulshi Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201547</catValu>
+        <labl>Lohagara</labl>
+      </catgry>
+      <catgry>
+        <catValu>201553</catValu>
+        <labl>Mirsharai</labl>
+      </catgry>
+      <catgry>
+        <catValu>201555</catValu>
+        <labl>Pahartali Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201557</catValu>
+        <labl>Panchlaish Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201561</catValu>
+        <labl>Patiya</labl>
+      </catgry>
+      <catgry>
+        <catValu>201565</catValu>
+        <labl>Patenga Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>201570</catValu>
+        <labl>Rangunia</labl>
+      </catgry>
+      <catgry>
+        <catValu>201574</catValu>
+        <labl>Raozan</labl>
+      </catgry>
+      <catgry>
+        <catValu>201578</catValu>
+        <labl>Sandwip</labl>
+      </catgry>
+      <catgry>
+        <catValu>201582</catValu>
+        <labl>Satkania</labl>
+      </catgry>
+      <catgry>
+        <catValu>201586</catValu>
+        <labl>Sitakunda</labl>
+      </catgry>
+      <catgry>
+        <catValu>201909</catValu>
+        <labl>Barura</labl>
+      </catgry>
+      <catgry>
+        <catValu>201915</catValu>
+        <labl>Brahman Para</labl>
+      </catgry>
+      <catgry>
+        <catValu>201918</catValu>
+        <labl>Burichang</labl>
+      </catgry>
+      <catgry>
+        <catValu>201927</catValu>
+        <labl>Chandina</labl>
+      </catgry>
+      <catgry>
+        <catValu>201931</catValu>
+        <labl>Chauddagram</labl>
+      </catgry>
+      <catgry>
+        <catValu>201933</catValu>
+        <labl>Comilla Sadar Dakhin</labl>
+      </catgry>
+      <catgry>
+        <catValu>201936</catValu>
+        <labl>Daudkandi</labl>
+      </catgry>
+      <catgry>
+        <catValu>201940</catValu>
+        <labl>Debidwar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201954</catValu>
+        <labl>Homna</labl>
+      </catgry>
+      <catgry>
+        <catValu>201967</catValu>
+        <labl>Comilla Adarsha Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201972</catValu>
+        <labl>Laksam</labl>
+      </catgry>
+      <catgry>
+        <catValu>201974</catValu>
+        <labl>Manoharganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>201975</catValu>
+        <labl>Meghna</labl>
+      </catgry>
+      <catgry>
+        <catValu>201981</catValu>
+        <labl>Muradnagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>201987</catValu>
+        <labl>Nangalkot</labl>
+      </catgry>
+      <catgry>
+        <catValu>201994</catValu>
+        <labl>Titas</labl>
+      </catgry>
+      <catgry>
+        <catValu>202216</catValu>
+        <labl>Chakaria</labl>
+      </catgry>
+      <catgry>
+        <catValu>202224</catValu>
+        <labl>Cox'S Bazar Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>202245</catValu>
+        <labl>Kutubdia</labl>
+      </catgry>
+      <catgry>
+        <catValu>202249</catValu>
+        <labl>Maheshkhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>202256</catValu>
+        <labl>Pekua</labl>
+      </catgry>
+      <catgry>
+        <catValu>202266</catValu>
+        <labl>Ramu</labl>
+      </catgry>
+      <catgry>
+        <catValu>202290</catValu>
+        <labl>Teknaf</labl>
+      </catgry>
+      <catgry>
+        <catValu>202294</catValu>
+        <labl>Ukhia</labl>
+      </catgry>
+      <catgry>
+        <catValu>203014</catValu>
+        <labl>Chhagalnaiya</labl>
+      </catgry>
+      <catgry>
+        <catValu>203025</catValu>
+        <labl>Daganbhuiyan</labl>
+      </catgry>
+      <catgry>
+        <catValu>203029</catValu>
+        <labl>Feni Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>203041</catValu>
+        <labl>Fulgazi</labl>
+      </catgry>
+      <catgry>
+        <catValu>203051</catValu>
+        <labl>Parshuram</labl>
+      </catgry>
+      <catgry>
+        <catValu>203094</catValu>
+        <labl>Sonagazi</labl>
+      </catgry>
+      <catgry>
+        <catValu>204643</catValu>
+        <labl>Dighinala</labl>
+      </catgry>
+      <catgry>
+        <catValu>204649</catValu>
+        <labl>Khagrachhari Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>204661</catValu>
+        <labl>Lakshmichhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>204665</catValu>
+        <labl>Mahalchhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>204667</catValu>
+        <labl>Manikchhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>204670</catValu>
+        <labl>Matiranga</labl>
+      </catgry>
+      <catgry>
+        <catValu>204677</catValu>
+        <labl>Panchhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>204680</catValu>
+        <labl>Ramgarh</labl>
+      </catgry>
+      <catgry>
+        <catValu>205133</catValu>
+        <labl>Kamalnagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>205143</catValu>
+        <labl>Lakshmipur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>205158</catValu>
+        <labl>Roypur</labl>
+      </catgry>
+      <catgry>
+        <catValu>205165</catValu>
+        <labl>Ramganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>205173</catValu>
+        <labl>Ramgati</labl>
+      </catgry>
+      <catgry>
+        <catValu>207507</catValu>
+        <labl>Begumganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>207510</catValu>
+        <labl>Chatkhil</labl>
+      </catgry>
+      <catgry>
+        <catValu>207521</catValu>
+        <labl>Companiganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>207536</catValu>
+        <labl>Hatiya</labl>
+      </catgry>
+      <catgry>
+        <catValu>207547</catValu>
+        <labl>Kabirhat</labl>
+      </catgry>
+      <catgry>
+        <catValu>207580</catValu>
+        <labl>Senbagh</labl>
+      </catgry>
+      <catgry>
+        <catValu>207583</catValu>
+        <labl>Sonaimuri</labl>
+      </catgry>
+      <catgry>
+        <catValu>207585</catValu>
+        <labl>Subarna Char</labl>
+      </catgry>
+      <catgry>
+        <catValu>207587</catValu>
+        <labl>Noakhali Sadar (Sudharam)</labl>
+      </catgry>
+      <catgry>
+        <catValu>208407</catValu>
+        <labl>Baghai Chhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>208421</catValu>
+        <labl>Barkal</labl>
+      </catgry>
+      <catgry>
+        <catValu>208425</catValu>
+        <labl>Kawkhali (Betbunia)</labl>
+      </catgry>
+      <catgry>
+        <catValu>208429</catValu>
+        <labl>Belai Chhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>208436</catValu>
+        <labl>Kaptai</labl>
+      </catgry>
+      <catgry>
+        <catValu>208447</catValu>
+        <labl>Jurai Chhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>208458</catValu>
+        <labl>Langadu</labl>
+      </catgry>
+      <catgry>
+        <catValu>208475</catValu>
+        <labl>Maniarchar</labl>
+      </catgry>
+      <catgry>
+        <catValu>208478</catValu>
+        <labl>Rajasthali</labl>
+      </catgry>
+      <catgry>
+        <catValu>208487</catValu>
+        <labl>Rangamati Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>302602</catValu>
+        <labl>Adabar Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302604</catValu>
+        <labl>Badda Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302605</catValu>
+        <labl>Bangshal Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302608</catValu>
+        <labl>Cantonment Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302609</catValu>
+        <labl>Chak Bazar Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302610</catValu>
+        <labl>Dakshinkhan Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302611</catValu>
+        <labl>Darus Salam Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302612</catValu>
+        <labl>Demra Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302614</catValu>
+        <labl>Dhamrai</labl>
+      </catgry>
+      <catgry>
+        <catValu>302616</catValu>
+        <labl>Dhanmondi Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302618</catValu>
+        <labl>Dohar</labl>
+      </catgry>
+      <catgry>
+        <catValu>302624</catValu>
+        <labl>Gendaria Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302626</catValu>
+        <labl>Gulshan Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302628</catValu>
+        <labl>Hazaribagh Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302629</catValu>
+        <labl>Jatrabari Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302630</catValu>
+        <labl>Kafrul Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302632</catValu>
+        <labl>Kadam Tali Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302633</catValu>
+        <labl>Kalabagan Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302634</catValu>
+        <labl>Kamrangir Char Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302636</catValu>
+        <labl>Khilgaon Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302637</catValu>
+        <labl>Khilkhet Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302638</catValu>
+        <labl>Keraniganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>302640</catValu>
+        <labl>Kotwali Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302642</catValu>
+        <labl>Lalbagh Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302648</catValu>
+        <labl>Mirpur Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302650</catValu>
+        <labl>Mohammadpur Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302654</catValu>
+        <labl>Motijheel Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302662</catValu>
+        <labl>Nawabganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>302663</catValu>
+        <labl>New Market Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302664</catValu>
+        <labl>Pallabi Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302665</catValu>
+        <labl>Paltan Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302666</catValu>
+        <labl>Ramna Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302667</catValu>
+        <labl>Rampura Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302668</catValu>
+        <labl>Sabujbagh Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302672</catValu>
+        <labl>Savar</labl>
+      </catgry>
+      <catgry>
+        <catValu>302674</catValu>
+        <labl>Shah Ali Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302675</catValu>
+        <labl>Shahbag Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302676</catValu>
+        <labl>Shyampur Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302680</catValu>
+        <labl>Sher-E-Bangla Nagar Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302688</catValu>
+        <labl>Sutrapur Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302690</catValu>
+        <labl>Tejgaon Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302692</catValu>
+        <labl>Tejgaon Ind.Area Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302693</catValu>
+        <labl>Turag Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302695</catValu>
+        <labl>Uttara and Bimanbandar Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302696</catValu>
+        <labl>Uttar Khan Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>302903</catValu>
+        <labl>Alfadanga</labl>
+      </catgry>
+      <catgry>
+        <catValu>302910</catValu>
+        <labl>Bhanga</labl>
+      </catgry>
+      <catgry>
+        <catValu>302918</catValu>
+        <labl>Boalmari</labl>
+      </catgry>
+      <catgry>
+        <catValu>302921</catValu>
+        <labl>Char Bhadrasan</labl>
+      </catgry>
+      <catgry>
+        <catValu>302947</catValu>
+        <labl>Faridpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>302956</catValu>
+        <labl>Madhukhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>302962</catValu>
+        <labl>Nagarkanda</labl>
+      </catgry>
+      <catgry>
+        <catValu>302984</catValu>
+        <labl>Sadarpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>302990</catValu>
+        <labl>Saltha</labl>
+      </catgry>
+      <catgry>
+        <catValu>303330</catValu>
+        <labl>Gazipur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>303332</catValu>
+        <labl>Kaliakair</labl>
+      </catgry>
+      <catgry>
+        <catValu>303334</catValu>
+        <labl>Kaliganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>303336</catValu>
+        <labl>Kapasia</labl>
+      </catgry>
+      <catgry>
+        <catValu>303386</catValu>
+        <labl>Sreepur</labl>
+      </catgry>
+      <catgry>
+        <catValu>303532</catValu>
+        <labl>Gopalganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>303543</catValu>
+        <labl>Kashiani</labl>
+      </catgry>
+      <catgry>
+        <catValu>303551</catValu>
+        <labl>Kotalipara</labl>
+      </catgry>
+      <catgry>
+        <catValu>303558</catValu>
+        <labl>Muksudpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>303591</catValu>
+        <labl>Tungipara</labl>
+      </catgry>
+      <catgry>
+        <catValu>303907</catValu>
+        <labl>Bakshiganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>303915</catValu>
+        <labl>Dewanganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>303929</catValu>
+        <labl>Islampur</labl>
+      </catgry>
+      <catgry>
+        <catValu>303936</catValu>
+        <labl>Jamalpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>303958</catValu>
+        <labl>Madarganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>303961</catValu>
+        <labl>Melandaha</labl>
+      </catgry>
+      <catgry>
+        <catValu>303985</catValu>
+        <labl>Sarishabari</labl>
+      </catgry>
+      <catgry>
+        <catValu>304802</catValu>
+        <labl>Austagram</labl>
+      </catgry>
+      <catgry>
+        <catValu>304806</catValu>
+        <labl>Bajitpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>304811</catValu>
+        <labl>Bhairab</labl>
+      </catgry>
+      <catgry>
+        <catValu>304827</catValu>
+        <labl>Hossainpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>304833</catValu>
+        <labl>Itna</labl>
+      </catgry>
+      <catgry>
+        <catValu>304842</catValu>
+        <labl>Karimganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>304845</catValu>
+        <labl>Katiadi</labl>
+      </catgry>
+      <catgry>
+        <catValu>304849</catValu>
+        <labl>Kishoreganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>304854</catValu>
+        <labl>Kuliar Char</labl>
+      </catgry>
+      <catgry>
+        <catValu>304859</catValu>
+        <labl>Mithamain</labl>
+      </catgry>
+      <catgry>
+        <catValu>304876</catValu>
+        <labl>Nikli</labl>
+      </catgry>
+      <catgry>
+        <catValu>304879</catValu>
+        <labl>Pakundia</labl>
+      </catgry>
+      <catgry>
+        <catValu>304892</catValu>
+        <labl>Tarail</labl>
+      </catgry>
+      <catgry>
+        <catValu>305440</catValu>
+        <labl>Kalkini</labl>
+      </catgry>
+      <catgry>
+        <catValu>305454</catValu>
+        <labl>Madaripur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>305480</catValu>
+        <labl>Rajoir</labl>
+      </catgry>
+      <catgry>
+        <catValu>305487</catValu>
+        <labl>Shib Char</labl>
+      </catgry>
+      <catgry>
+        <catValu>305610</catValu>
+        <labl>Daulatpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>305622</catValu>
+        <labl>Ghior</labl>
+      </catgry>
+      <catgry>
+        <catValu>305628</catValu>
+        <labl>Harirampur</labl>
+      </catgry>
+      <catgry>
+        <catValu>305646</catValu>
+        <labl>Manikganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>305670</catValu>
+        <labl>Saturia</labl>
+      </catgry>
+      <catgry>
+        <catValu>305678</catValu>
+        <labl>Shibalaya</labl>
+      </catgry>
+      <catgry>
+        <catValu>305682</catValu>
+        <labl>Singair</labl>
+      </catgry>
+      <catgry>
+        <catValu>305924</catValu>
+        <labl>Gazaria</labl>
+      </catgry>
+      <catgry>
+        <catValu>305944</catValu>
+        <labl>Lohajang</labl>
+      </catgry>
+      <catgry>
+        <catValu>305956</catValu>
+        <labl>Munshiganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>305974</catValu>
+        <labl>Serajdikhan</labl>
+      </catgry>
+      <catgry>
+        <catValu>305984</catValu>
+        <labl>Sreenagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>305994</catValu>
+        <labl>Tongibari</labl>
+      </catgry>
+      <catgry>
+        <catValu>306113</catValu>
+        <labl>Bhaluka</labl>
+      </catgry>
+      <catgry>
+        <catValu>306116</catValu>
+        <labl>Dhobaura</labl>
+      </catgry>
+      <catgry>
+        <catValu>306120</catValu>
+        <labl>Fulbaria</labl>
+      </catgry>
+      <catgry>
+        <catValu>306122</catValu>
+        <labl>Gaffargaon</labl>
+      </catgry>
+      <catgry>
+        <catValu>306123</catValu>
+        <labl>Gauripur</labl>
+      </catgry>
+      <catgry>
+        <catValu>306124</catValu>
+        <labl>Haluaghat</labl>
+      </catgry>
+      <catgry>
+        <catValu>306131</catValu>
+        <labl>Ishwarganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>306152</catValu>
+        <labl>Mymensingh Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>306165</catValu>
+        <labl>Muktagachha</labl>
+      </catgry>
+      <catgry>
+        <catValu>306172</catValu>
+        <labl>Nandail</labl>
+      </catgry>
+      <catgry>
+        <catValu>306181</catValu>
+        <labl>Phulpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>306194</catValu>
+        <labl>Trishal</labl>
+      </catgry>
+      <catgry>
+        <catValu>306702</catValu>
+        <labl>Araihazar</labl>
+      </catgry>
+      <catgry>
+        <catValu>306704</catValu>
+        <labl>Sonargaon</labl>
+      </catgry>
+      <catgry>
+        <catValu>306706</catValu>
+        <labl>Bandar</labl>
+      </catgry>
+      <catgry>
+        <catValu>306758</catValu>
+        <labl>Narayanganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>306768</catValu>
+        <labl>Rupganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>306807</catValu>
+        <labl>Belabo</labl>
+      </catgry>
+      <catgry>
+        <catValu>306852</catValu>
+        <labl>Manohardi</labl>
+      </catgry>
+      <catgry>
+        <catValu>306860</catValu>
+        <labl>Narsingdi Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>306863</catValu>
+        <labl>Palash</labl>
+      </catgry>
+      <catgry>
+        <catValu>306864</catValu>
+        <labl>Roypura</labl>
+      </catgry>
+      <catgry>
+        <catValu>306876</catValu>
+        <labl>Shibpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>307204</catValu>
+        <labl>Atpara</labl>
+      </catgry>
+      <catgry>
+        <catValu>307209</catValu>
+        <labl>Barhatta</labl>
+      </catgry>
+      <catgry>
+        <catValu>307218</catValu>
+        <labl>Durgapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>307238</catValu>
+        <labl>Khaliajuri</labl>
+      </catgry>
+      <catgry>
+        <catValu>307240</catValu>
+        <labl>Kalmakanda</labl>
+      </catgry>
+      <catgry>
+        <catValu>307247</catValu>
+        <labl>Kendua Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>307256</catValu>
+        <labl>Madan</labl>
+      </catgry>
+      <catgry>
+        <catValu>307263</catValu>
+        <labl>Mohanganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>307274</catValu>
+        <labl>Netrokona Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>307283</catValu>
+        <labl>Purbadhala</labl>
+      </catgry>
+      <catgry>
+        <catValu>308207</catValu>
+        <labl>Baliakandi</labl>
+      </catgry>
+      <catgry>
+        <catValu>308229</catValu>
+        <labl>Goalandaghat</labl>
+      </catgry>
+      <catgry>
+        <catValu>308247</catValu>
+        <labl>Kalukhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>308273</catValu>
+        <labl>Pangsha</labl>
+      </catgry>
+      <catgry>
+        <catValu>308276</catValu>
+        <labl>Rajbari Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>308614</catValu>
+        <labl>Bhedarganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>308625</catValu>
+        <labl>Damudya</labl>
+      </catgry>
+      <catgry>
+        <catValu>308636</catValu>
+        <labl>Gosairhat</labl>
+      </catgry>
+      <catgry>
+        <catValu>308665</catValu>
+        <labl>Naria</labl>
+      </catgry>
+      <catgry>
+        <catValu>308669</catValu>
+        <labl>Palong (Sadar)</labl>
+      </catgry>
+      <catgry>
+        <catValu>308694</catValu>
+        <labl>Zanjira</labl>
+      </catgry>
+      <catgry>
+        <catValu>308937</catValu>
+        <labl>Jhenaigati</labl>
+      </catgry>
+      <catgry>
+        <catValu>308967</catValu>
+        <labl>Nakla</labl>
+      </catgry>
+      <catgry>
+        <catValu>308970</catValu>
+        <labl>Nalitabari</labl>
+      </catgry>
+      <catgry>
+        <catValu>308988</catValu>
+        <labl>Sherpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>308990</catValu>
+        <labl>Sreebardi</labl>
+      </catgry>
+      <catgry>
+        <catValu>309309</catValu>
+        <labl>Basail</labl>
+      </catgry>
+      <catgry>
+        <catValu>309319</catValu>
+        <labl>Bhuapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>309323</catValu>
+        <labl>Delduar</labl>
+      </catgry>
+      <catgry>
+        <catValu>309325</catValu>
+        <labl>Dhanbari</labl>
+      </catgry>
+      <catgry>
+        <catValu>309328</catValu>
+        <labl>Ghatail</labl>
+      </catgry>
+      <catgry>
+        <catValu>309338</catValu>
+        <labl>Gopalpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>309347</catValu>
+        <labl>Kalihati</labl>
+      </catgry>
+      <catgry>
+        <catValu>309357</catValu>
+        <labl>Madhupur</labl>
+      </catgry>
+      <catgry>
+        <catValu>309366</catValu>
+        <labl>Mirzapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>309376</catValu>
+        <labl>Nagarpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>309385</catValu>
+        <labl>Sakhipur</labl>
+      </catgry>
+      <catgry>
+        <catValu>309395</catValu>
+        <labl>Tangail Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>400108</catValu>
+        <labl>Bagerhat Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>400114</catValu>
+        <labl>Chitalmari</labl>
+      </catgry>
+      <catgry>
+        <catValu>400134</catValu>
+        <labl>Fakirhat</labl>
+      </catgry>
+      <catgry>
+        <catValu>400138</catValu>
+        <labl>Kachua</labl>
+      </catgry>
+      <catgry>
+        <catValu>400156</catValu>
+        <labl>Mollahat</labl>
+      </catgry>
+      <catgry>
+        <catValu>400158</catValu>
+        <labl>Mongla</labl>
+      </catgry>
+      <catgry>
+        <catValu>400160</catValu>
+        <labl>Morrelganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>400173</catValu>
+        <labl>Rampal</labl>
+      </catgry>
+      <catgry>
+        <catValu>400177</catValu>
+        <labl>Sarankhola</labl>
+      </catgry>
+      <catgry>
+        <catValu>401807</catValu>
+        <labl>Alamdanga</labl>
+      </catgry>
+      <catgry>
+        <catValu>401823</catValu>
+        <labl>Chuadanga Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>401831</catValu>
+        <labl>Damurhuda</labl>
+      </catgry>
+      <catgry>
+        <catValu>401855</catValu>
+        <labl>Jiban Nagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>404104</catValu>
+        <labl>Abhaynagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>404109</catValu>
+        <labl>Bagher Para</labl>
+      </catgry>
+      <catgry>
+        <catValu>404111</catValu>
+        <labl>Chaugachha</labl>
+      </catgry>
+      <catgry>
+        <catValu>404123</catValu>
+        <labl>Jhikargachha</labl>
+      </catgry>
+      <catgry>
+        <catValu>404138</catValu>
+        <labl>Keshabpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>404147</catValu>
+        <labl>Kotwali</labl>
+      </catgry>
+      <catgry>
+        <catValu>404161</catValu>
+        <labl>Manirampur</labl>
+      </catgry>
+      <catgry>
+        <catValu>404190</catValu>
+        <labl>Sharsha</labl>
+      </catgry>
+      <catgry>
+        <catValu>404414</catValu>
+        <labl>Harinakunda</labl>
+      </catgry>
+      <catgry>
+        <catValu>404419</catValu>
+        <labl>Jhenaidaha Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>404433</catValu>
+        <labl>Kaliganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>404442</catValu>
+        <labl>Kotchandpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>404471</catValu>
+        <labl>Maheshpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>404480</catValu>
+        <labl>Shailkupa</labl>
+      </catgry>
+      <catgry>
+        <catValu>404712</catValu>
+        <labl>Batiaghata</labl>
+      </catgry>
+      <catgry>
+        <catValu>404717</catValu>
+        <labl>Dacope</labl>
+      </catgry>
+      <catgry>
+        <catValu>404721</catValu>
+        <labl>Daulatpur Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>404730</catValu>
+        <labl>Dumuria</labl>
+      </catgry>
+      <catgry>
+        <catValu>404740</catValu>
+        <labl>Dighalia</labl>
+      </catgry>
+      <catgry>
+        <catValu>404745</catValu>
+        <labl>Khalishpur Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>404748</catValu>
+        <labl>Khan Jahan Ali Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>404751</catValu>
+        <labl>Khulna Sadar Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>404753</catValu>
+        <labl>Koyra</labl>
+      </catgry>
+      <catgry>
+        <catValu>404764</catValu>
+        <labl>Paikgachha</labl>
+      </catgry>
+      <catgry>
+        <catValu>404769</catValu>
+        <labl>Phultala</labl>
+      </catgry>
+      <catgry>
+        <catValu>404775</catValu>
+        <labl>Rupsa</labl>
+      </catgry>
+      <catgry>
+        <catValu>404785</catValu>
+        <labl>Sonadanga Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>404794</catValu>
+        <labl>Terokhada</labl>
+      </catgry>
+      <catgry>
+        <catValu>405015</catValu>
+        <labl>Bheramara</labl>
+      </catgry>
+      <catgry>
+        <catValu>405039</catValu>
+        <labl>Daulatpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>405063</catValu>
+        <labl>Khoksa</labl>
+      </catgry>
+      <catgry>
+        <catValu>405071</catValu>
+        <labl>Kumarkhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>405079</catValu>
+        <labl>Kushtia Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>405094</catValu>
+        <labl>Mirpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>405557</catValu>
+        <labl>Magura Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>405566</catValu>
+        <labl>Mohammadpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>405585</catValu>
+        <labl>Shalikha</labl>
+      </catgry>
+      <catgry>
+        <catValu>405595</catValu>
+        <labl>Sreepur</labl>
+      </catgry>
+      <catgry>
+        <catValu>405747</catValu>
+        <labl>Gangni</labl>
+      </catgry>
+      <catgry>
+        <catValu>405760</catValu>
+        <labl>Mujib Nagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>405787</catValu>
+        <labl>Meherpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>406528</catValu>
+        <labl>Kalia</labl>
+      </catgry>
+      <catgry>
+        <catValu>406552</catValu>
+        <labl>Lohagara</labl>
+      </catgry>
+      <catgry>
+        <catValu>406576</catValu>
+        <labl>Narail Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>408704</catValu>
+        <labl>Assasuni</labl>
+      </catgry>
+      <catgry>
+        <catValu>408725</catValu>
+        <labl>Debhata</labl>
+      </catgry>
+      <catgry>
+        <catValu>408743</catValu>
+        <labl>Kalaroa</labl>
+      </catgry>
+      <catgry>
+        <catValu>408747</catValu>
+        <labl>Kaliganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>408782</catValu>
+        <labl>Satkhira Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>408786</catValu>
+        <labl>Shyamnagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>408790</catValu>
+        <labl>Tala</labl>
+      </catgry>
+      <catgry>
+        <catValu>501006</catValu>
+        <labl>Adamdighi</labl>
+      </catgry>
+      <catgry>
+        <catValu>501020</catValu>
+        <labl>Bogra Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>501027</catValu>
+        <labl>Dhunat</labl>
+      </catgry>
+      <catgry>
+        <catValu>501033</catValu>
+        <labl>Dhupchanchia</labl>
+      </catgry>
+      <catgry>
+        <catValu>501040</catValu>
+        <labl>Gabtali</labl>
+      </catgry>
+      <catgry>
+        <catValu>501054</catValu>
+        <labl>Kahaloo</labl>
+      </catgry>
+      <catgry>
+        <catValu>501067</catValu>
+        <labl>Nandigram</labl>
+      </catgry>
+      <catgry>
+        <catValu>501081</catValu>
+        <labl>Sariakandi</labl>
+      </catgry>
+      <catgry>
+        <catValu>501085</catValu>
+        <labl>Shajahanpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>501088</catValu>
+        <labl>Sherpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>501094</catValu>
+        <labl>Shibganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>501095</catValu>
+        <labl>Sonatola</labl>
+      </catgry>
+      <catgry>
+        <catValu>503813</catValu>
+        <labl>Akkelpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>503847</catValu>
+        <labl>Joypurhat Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>503858</catValu>
+        <labl>Kalai</labl>
+      </catgry>
+      <catgry>
+        <catValu>503861</catValu>
+        <labl>Khetlal</labl>
+      </catgry>
+      <catgry>
+        <catValu>503874</catValu>
+        <labl>Panchbibi</labl>
+      </catgry>
+      <catgry>
+        <catValu>506403</catValu>
+        <labl>Atrai</labl>
+      </catgry>
+      <catgry>
+        <catValu>506406</catValu>
+        <labl>Badalgachhi</labl>
+      </catgry>
+      <catgry>
+        <catValu>506428</catValu>
+        <labl>Dhamoirhat</labl>
+      </catgry>
+      <catgry>
+        <catValu>506447</catValu>
+        <labl>Manda</labl>
+      </catgry>
+      <catgry>
+        <catValu>506450</catValu>
+        <labl>Mahadebpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>506460</catValu>
+        <labl>Naogaon Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>506469</catValu>
+        <labl>Niamatpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>506475</catValu>
+        <labl>Patnitala</labl>
+      </catgry>
+      <catgry>
+        <catValu>506479</catValu>
+        <labl>Porsha</labl>
+      </catgry>
+      <catgry>
+        <catValu>506485</catValu>
+        <labl>Raninagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>506486</catValu>
+        <labl>Sapahar</labl>
+      </catgry>
+      <catgry>
+        <catValu>506909</catValu>
+        <labl>Bagati Para</labl>
+      </catgry>
+      <catgry>
+        <catValu>506915</catValu>
+        <labl>Baraigram</labl>
+      </catgry>
+      <catgry>
+        <catValu>506941</catValu>
+        <labl>Gurudaspur</labl>
+      </catgry>
+      <catgry>
+        <catValu>506944</catValu>
+        <labl>Lalpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>506963</catValu>
+        <labl>Natore Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>506991</catValu>
+        <labl>Singra</labl>
+      </catgry>
+      <catgry>
+        <catValu>507018</catValu>
+        <labl>Bholahat</labl>
+      </catgry>
+      <catgry>
+        <catValu>507037</catValu>
+        <labl>Gomastapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>507056</catValu>
+        <labl>Nachole</labl>
+      </catgry>
+      <catgry>
+        <catValu>507066</catValu>
+        <labl>Nababganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>507088</catValu>
+        <labl>Shibganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>507605</catValu>
+        <labl>Atgharia</labl>
+      </catgry>
+      <catgry>
+        <catValu>507616</catValu>
+        <labl>Bera</labl>
+      </catgry>
+      <catgry>
+        <catValu>507619</catValu>
+        <labl>Bhangura</labl>
+      </catgry>
+      <catgry>
+        <catValu>507622</catValu>
+        <labl>Chatmohar</labl>
+      </catgry>
+      <catgry>
+        <catValu>507633</catValu>
+        <labl>Faridpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>507639</catValu>
+        <labl>Ishwardi</labl>
+      </catgry>
+      <catgry>
+        <catValu>507655</catValu>
+        <labl>Pabna Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>507672</catValu>
+        <labl>Santhia</labl>
+      </catgry>
+      <catgry>
+        <catValu>507683</catValu>
+        <labl>Sujanagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>508110</catValu>
+        <labl>Bagha</labl>
+      </catgry>
+      <catgry>
+        <catValu>508112</catValu>
+        <labl>Baghmara</labl>
+      </catgry>
+      <catgry>
+        <catValu>508122</catValu>
+        <labl>Boalia Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>508125</catValu>
+        <labl>Charghat</labl>
+      </catgry>
+      <catgry>
+        <catValu>508131</catValu>
+        <labl>Durgapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>508134</catValu>
+        <labl>Godagari</labl>
+      </catgry>
+      <catgry>
+        <catValu>508140</catValu>
+        <labl>Matihar Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>508153</catValu>
+        <labl>Mohanpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>508172</catValu>
+        <labl>Paba</labl>
+      </catgry>
+      <catgry>
+        <catValu>508182</catValu>
+        <labl>Puthia</labl>
+      </catgry>
+      <catgry>
+        <catValu>508185</catValu>
+        <labl>Rajpara Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>508190</catValu>
+        <labl>Shah Makhdum Thana</labl>
+      </catgry>
+      <catgry>
+        <catValu>508194</catValu>
+        <labl>Tanore</labl>
+      </catgry>
+      <catgry>
+        <catValu>508811</catValu>
+        <labl>Belkuchi</labl>
+      </catgry>
+      <catgry>
+        <catValu>508827</catValu>
+        <labl>Chauhali</labl>
+      </catgry>
+      <catgry>
+        <catValu>508844</catValu>
+        <labl>Kamarkhanda</labl>
+      </catgry>
+      <catgry>
+        <catValu>508850</catValu>
+        <labl>Kazipur</labl>
+      </catgry>
+      <catgry>
+        <catValu>508861</catValu>
+        <labl>Royganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>508867</catValu>
+        <labl>Shahjadpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>508878</catValu>
+        <labl>Sirajganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>508889</catValu>
+        <labl>Tarash</labl>
+      </catgry>
+      <catgry>
+        <catValu>508894</catValu>
+        <labl>Ullah Para</labl>
+      </catgry>
+      <catgry>
+        <catValu>552710</catValu>
+        <labl>Birampur</labl>
+      </catgry>
+      <catgry>
+        <catValu>552712</catValu>
+        <labl>Birganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>552717</catValu>
+        <labl>Biral</labl>
+      </catgry>
+      <catgry>
+        <catValu>552721</catValu>
+        <labl>Bochaganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>552730</catValu>
+        <labl>Chirirbandar</labl>
+      </catgry>
+      <catgry>
+        <catValu>552738</catValu>
+        <labl>Fulbari</labl>
+      </catgry>
+      <catgry>
+        <catValu>552743</catValu>
+        <labl>Ghoraghat</labl>
+      </catgry>
+      <catgry>
+        <catValu>552747</catValu>
+        <labl>Hakimpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>552756</catValu>
+        <labl>Kaharole</labl>
+      </catgry>
+      <catgry>
+        <catValu>552760</catValu>
+        <labl>Khansama</labl>
+      </catgry>
+      <catgry>
+        <catValu>552764</catValu>
+        <labl>Dinajpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>552769</catValu>
+        <labl>Nawabganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>552777</catValu>
+        <labl>Parbatipur</labl>
+      </catgry>
+      <catgry>
+        <catValu>553221</catValu>
+        <labl>Fulchhari</labl>
+      </catgry>
+      <catgry>
+        <catValu>553224</catValu>
+        <labl>Gaibandha Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>553230</catValu>
+        <labl>Gobindaganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>553267</catValu>
+        <labl>Palashbari</labl>
+      </catgry>
+      <catgry>
+        <catValu>553282</catValu>
+        <labl>Sadullapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>553288</catValu>
+        <labl>Saghatta</labl>
+      </catgry>
+      <catgry>
+        <catValu>553291</catValu>
+        <labl>Sundarganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>554906</catValu>
+        <labl>Bhurungamari</labl>
+      </catgry>
+      <catgry>
+        <catValu>554908</catValu>
+        <labl>Char Rajibpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>554909</catValu>
+        <labl>Chilmari</labl>
+      </catgry>
+      <catgry>
+        <catValu>554918</catValu>
+        <labl>Phulbari</labl>
+      </catgry>
+      <catgry>
+        <catValu>554952</catValu>
+        <labl>Kurigram Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>554961</catValu>
+        <labl>Nageshwari</labl>
+      </catgry>
+      <catgry>
+        <catValu>554977</catValu>
+        <labl>Rajarhat</labl>
+      </catgry>
+      <catgry>
+        <catValu>554979</catValu>
+        <labl>Raumari</labl>
+      </catgry>
+      <catgry>
+        <catValu>554994</catValu>
+        <labl>Ulipur</labl>
+      </catgry>
+      <catgry>
+        <catValu>555202</catValu>
+        <labl>Aditmari</labl>
+      </catgry>
+      <catgry>
+        <catValu>555233</catValu>
+        <labl>Hatibandha</labl>
+      </catgry>
+      <catgry>
+        <catValu>555239</catValu>
+        <labl>Kaliganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>555255</catValu>
+        <labl>Lalmonirhat Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>555270</catValu>
+        <labl>Patgram</labl>
+      </catgry>
+      <catgry>
+        <catValu>557312</catValu>
+        <labl>Dimla</labl>
+      </catgry>
+      <catgry>
+        <catValu>557315</catValu>
+        <labl>Domar</labl>
+      </catgry>
+      <catgry>
+        <catValu>557336</catValu>
+        <labl>Jaldhaka</labl>
+      </catgry>
+      <catgry>
+        <catValu>557345</catValu>
+        <labl>Kishoreganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>557364</catValu>
+        <labl>Nilphamari Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>557385</catValu>
+        <labl>Saidpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>557704</catValu>
+        <labl>Atwari</labl>
+      </catgry>
+      <catgry>
+        <catValu>557725</catValu>
+        <labl>Boda</labl>
+      </catgry>
+      <catgry>
+        <catValu>557734</catValu>
+        <labl>Debiganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>557773</catValu>
+        <labl>Panchagarh Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>557790</catValu>
+        <labl>Tentulia</labl>
+      </catgry>
+      <catgry>
+        <catValu>558503</catValu>
+        <labl>Badarganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>558527</catValu>
+        <labl>Gangachara</labl>
+      </catgry>
+      <catgry>
+        <catValu>558542</catValu>
+        <labl>Kaunia</labl>
+      </catgry>
+      <catgry>
+        <catValu>558549</catValu>
+        <labl>Rangpur Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>558558</catValu>
+        <labl>Mitha Pukur</labl>
+      </catgry>
+      <catgry>
+        <catValu>558573</catValu>
+        <labl>Pirgachha</labl>
+      </catgry>
+      <catgry>
+        <catValu>558576</catValu>
+        <labl>Pirganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>558592</catValu>
+        <labl>Taraganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>559408</catValu>
+        <labl>Baliadangi</labl>
+      </catgry>
+      <catgry>
+        <catValu>559451</catValu>
+        <labl>Haripur</labl>
+      </catgry>
+      <catgry>
+        <catValu>559482</catValu>
+        <labl>Pirganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>559486</catValu>
+        <labl>Ranisankail</labl>
+      </catgry>
+      <catgry>
+        <catValu>559494</catValu>
+        <labl>Thakurgaon Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>603602</catValu>
+        <labl>Ajmiriganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>603605</catValu>
+        <labl>Bahubal</labl>
+      </catgry>
+      <catgry>
+        <catValu>603611</catValu>
+        <labl>Baniachong</labl>
+      </catgry>
+      <catgry>
+        <catValu>603626</catValu>
+        <labl>Chunarughat</labl>
+      </catgry>
+      <catgry>
+        <catValu>603644</catValu>
+        <labl>Habiganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>603668</catValu>
+        <labl>Lakhai</labl>
+      </catgry>
+      <catgry>
+        <catValu>603671</catValu>
+        <labl>Madhabpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>603677</catValu>
+        <labl>Nabiganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>605814</catValu>
+        <labl>Barlekha</labl>
+      </catgry>
+      <catgry>
+        <catValu>605835</catValu>
+        <labl>Juri</labl>
+      </catgry>
+      <catgry>
+        <catValu>605856</catValu>
+        <labl>Kamalganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>605865</catValu>
+        <labl>Kulaura</labl>
+      </catgry>
+      <catgry>
+        <catValu>605874</catValu>
+        <labl>Maulvi Bazar Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>605880</catValu>
+        <labl>Rajnagar</labl>
+      </catgry>
+      <catgry>
+        <catValu>605883</catValu>
+        <labl>Sreemangal</labl>
+      </catgry>
+      <catgry>
+        <catValu>609018</catValu>
+        <labl>Bishwambarpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>609023</catValu>
+        <labl>Chhatak</labl>
+      </catgry>
+      <catgry>
+        <catValu>609027</catValu>
+        <labl>Dakhin Sunamganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>609029</catValu>
+        <labl>Derai</labl>
+      </catgry>
+      <catgry>
+        <catValu>609032</catValu>
+        <labl>Dharampasha</labl>
+      </catgry>
+      <catgry>
+        <catValu>609033</catValu>
+        <labl>Dowarabazar</labl>
+      </catgry>
+      <catgry>
+        <catValu>609047</catValu>
+        <labl>Jagannathpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>609050</catValu>
+        <labl>Jamalganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>609086</catValu>
+        <labl>Sulla</labl>
+      </catgry>
+      <catgry>
+        <catValu>609089</catValu>
+        <labl>Sunamganj Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>609092</catValu>
+        <labl>Tahirpur</labl>
+      </catgry>
+      <catgry>
+        <catValu>609108</catValu>
+        <labl>Balaganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>609117</catValu>
+        <labl>Beani Bazar</labl>
+      </catgry>
+      <catgry>
+        <catValu>609120</catValu>
+        <labl>Bishwanath</labl>
+      </catgry>
+      <catgry>
+        <catValu>609127</catValu>
+        <labl>Companiganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>609131</catValu>
+        <labl>Dakhin Surma</labl>
+      </catgry>
+      <catgry>
+        <catValu>609135</catValu>
+        <labl>Fenchuganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>609138</catValu>
+        <labl>Golabganj</labl>
+      </catgry>
+      <catgry>
+        <catValu>609141</catValu>
+        <labl>Gowainghat</labl>
+      </catgry>
+      <catgry>
+        <catValu>609153</catValu>
+        <labl>Jaintiapur</labl>
+      </catgry>
+      <catgry>
+        <catValu>609159</catValu>
+        <labl>Kanaighat</labl>
+      </catgry>
+      <catgry>
+        <catValu>609162</catValu>
+        <labl>Sylhet Sadar</labl>
+      </catgry>
+      <catgry>
+        <catValu>609194</catValu>
+        <labl>Zakiganj</labl>
+      </catgry>
+      <concept vocab="IPUMS">Geography: A-E Variables -- HOUSEHOLD</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PERNUM" files="ExtractData" name="PERNUM" intrvl="contin" dcml="0">
+      <location StartPos="16" width="4" EndPos="19"/>
+      <labl>Person number</labl>
+      <txt><![CDATA[PERNUM numbers all persons within each household consecutively (starting with "1" for the first person record of each household). When combined with SAMPLE and SERIAL, PERNUM uniquely identifies each person in the IPUMS-International database.]]></txt>
+      <codInstr><![CDATA[PERNUM is a 4-digit numeric variable.]]></codInstr>
+      <concept vocab="IPUMS">Technical Person Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="PERWT" files="ExtractData" name="PERWT" intrvl="contin" dcml="2">
+      <location StartPos="20" width="8" EndPos="27"/>
+      <labl>Person weight</labl>
+      <txt><![CDATA[PERWT indicates the number of persons in the actual population represented by the person in the sample.
+
+For the samples that are truly weighted (see the comparability discussion), PERWT must be used to yield accurate statistics for the population.
+
+NOTE: PERWT has 2 implied decimal places.  That is, the last two digits of the eight-digit variable are decimal digits, but there is no actual decimal in the data.]]></txt>
+      <codInstr><![CDATA[This is a 8-digit numeric variable with 2 implied decimal places]]></codInstr>
+      <concept vocab="IPUMS">Technical Person Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="AGE" files="ExtractData" name="AGE" intrvl="discrete" dcml="0">
+      <location StartPos="28" width="3" EndPos="30"/>
+      <labl>Age</labl>
+      <txt><![CDATA[AGE gives age in years as of the person's last birthday prior to or on the day of enumeration.]]></txt>
+      <catgry>
+        <catValu>999</catValu>
+        <labl>Not reported/missing</labl>
+      </catgry>
+      <catgry>
+        <catValu>100</catValu>
+        <labl>100+</labl>
+      </catgry>
+      <catgry>
+        <catValu>099</catValu>
+        <labl>99</labl>
+      </catgry>
+      <catgry>
+        <catValu>098</catValu>
+        <labl>98</labl>
+      </catgry>
+      <catgry>
+        <catValu>097</catValu>
+        <labl>97</labl>
+      </catgry>
+      <catgry>
+        <catValu>096</catValu>
+        <labl>96</labl>
+      </catgry>
+      <catgry>
+        <catValu>095</catValu>
+        <labl>95</labl>
+      </catgry>
+      <catgry>
+        <catValu>094</catValu>
+        <labl>94</labl>
+      </catgry>
+      <catgry>
+        <catValu>093</catValu>
+        <labl>93</labl>
+      </catgry>
+      <catgry>
+        <catValu>092</catValu>
+        <labl>92</labl>
+      </catgry>
+      <catgry>
+        <catValu>091</catValu>
+        <labl>91</labl>
+      </catgry>
+      <catgry>
+        <catValu>090</catValu>
+        <labl>90</labl>
+      </catgry>
+      <catgry>
+        <catValu>089</catValu>
+        <labl>89</labl>
+      </catgry>
+      <catgry>
+        <catValu>088</catValu>
+        <labl>88</labl>
+      </catgry>
+      <catgry>
+        <catValu>087</catValu>
+        <labl>87</labl>
+      </catgry>
+      <catgry>
+        <catValu>086</catValu>
+        <labl>86</labl>
+      </catgry>
+      <catgry>
+        <catValu>085</catValu>
+        <labl>85</labl>
+      </catgry>
+      <catgry>
+        <catValu>084</catValu>
+        <labl>84</labl>
+      </catgry>
+      <catgry>
+        <catValu>083</catValu>
+        <labl>83</labl>
+      </catgry>
+      <catgry>
+        <catValu>082</catValu>
+        <labl>82</labl>
+      </catgry>
+      <catgry>
+        <catValu>081</catValu>
+        <labl>81</labl>
+      </catgry>
+      <catgry>
+        <catValu>080</catValu>
+        <labl>80</labl>
+      </catgry>
+      <catgry>
+        <catValu>079</catValu>
+        <labl>79</labl>
+      </catgry>
+      <catgry>
+        <catValu>078</catValu>
+        <labl>78</labl>
+      </catgry>
+      <catgry>
+        <catValu>077</catValu>
+        <labl>77</labl>
+      </catgry>
+      <catgry>
+        <catValu>076</catValu>
+        <labl>76</labl>
+      </catgry>
+      <catgry>
+        <catValu>075</catValu>
+        <labl>75</labl>
+      </catgry>
+      <catgry>
+        <catValu>074</catValu>
+        <labl>74</labl>
+      </catgry>
+      <catgry>
+        <catValu>073</catValu>
+        <labl>73</labl>
+      </catgry>
+      <catgry>
+        <catValu>072</catValu>
+        <labl>72</labl>
+      </catgry>
+      <catgry>
+        <catValu>071</catValu>
+        <labl>71</labl>
+      </catgry>
+      <catgry>
+        <catValu>070</catValu>
+        <labl>70</labl>
+      </catgry>
+      <catgry>
+        <catValu>069</catValu>
+        <labl>69</labl>
+      </catgry>
+      <catgry>
+        <catValu>068</catValu>
+        <labl>68</labl>
+      </catgry>
+      <catgry>
+        <catValu>067</catValu>
+        <labl>67</labl>
+      </catgry>
+      <catgry>
+        <catValu>066</catValu>
+        <labl>66</labl>
+      </catgry>
+      <catgry>
+        <catValu>065</catValu>
+        <labl>65</labl>
+      </catgry>
+      <catgry>
+        <catValu>064</catValu>
+        <labl>64</labl>
+      </catgry>
+      <catgry>
+        <catValu>063</catValu>
+        <labl>63</labl>
+      </catgry>
+      <catgry>
+        <catValu>062</catValu>
+        <labl>62</labl>
+      </catgry>
+      <catgry>
+        <catValu>061</catValu>
+        <labl>61</labl>
+      </catgry>
+      <catgry>
+        <catValu>060</catValu>
+        <labl>60</labl>
+      </catgry>
+      <catgry>
+        <catValu>059</catValu>
+        <labl>59</labl>
+      </catgry>
+      <catgry>
+        <catValu>058</catValu>
+        <labl>58</labl>
+      </catgry>
+      <catgry>
+        <catValu>057</catValu>
+        <labl>57</labl>
+      </catgry>
+      <catgry>
+        <catValu>056</catValu>
+        <labl>56</labl>
+      </catgry>
+      <catgry>
+        <catValu>055</catValu>
+        <labl>55</labl>
+      </catgry>
+      <catgry>
+        <catValu>054</catValu>
+        <labl>54</labl>
+      </catgry>
+      <catgry>
+        <catValu>053</catValu>
+        <labl>53</labl>
+      </catgry>
+      <catgry>
+        <catValu>052</catValu>
+        <labl>52</labl>
+      </catgry>
+      <catgry>
+        <catValu>051</catValu>
+        <labl>51</labl>
+      </catgry>
+      <catgry>
+        <catValu>050</catValu>
+        <labl>50</labl>
+      </catgry>
+      <catgry>
+        <catValu>049</catValu>
+        <labl>49</labl>
+      </catgry>
+      <catgry>
+        <catValu>048</catValu>
+        <labl>48</labl>
+      </catgry>
+      <catgry>
+        <catValu>047</catValu>
+        <labl>47</labl>
+      </catgry>
+      <catgry>
+        <catValu>046</catValu>
+        <labl>46</labl>
+      </catgry>
+      <catgry>
+        <catValu>045</catValu>
+        <labl>45</labl>
+      </catgry>
+      <catgry>
+        <catValu>044</catValu>
+        <labl>44</labl>
+      </catgry>
+      <catgry>
+        <catValu>043</catValu>
+        <labl>43</labl>
+      </catgry>
+      <catgry>
+        <catValu>042</catValu>
+        <labl>42</labl>
+      </catgry>
+      <catgry>
+        <catValu>041</catValu>
+        <labl>41</labl>
+      </catgry>
+      <catgry>
+        <catValu>040</catValu>
+        <labl>40</labl>
+      </catgry>
+      <catgry>
+        <catValu>039</catValu>
+        <labl>39</labl>
+      </catgry>
+      <catgry>
+        <catValu>038</catValu>
+        <labl>38</labl>
+      </catgry>
+      <catgry>
+        <catValu>037</catValu>
+        <labl>37</labl>
+      </catgry>
+      <catgry>
+        <catValu>036</catValu>
+        <labl>36</labl>
+      </catgry>
+      <catgry>
+        <catValu>035</catValu>
+        <labl>35</labl>
+      </catgry>
+      <catgry>
+        <catValu>034</catValu>
+        <labl>34</labl>
+      </catgry>
+      <catgry>
+        <catValu>033</catValu>
+        <labl>33</labl>
+      </catgry>
+      <catgry>
+        <catValu>032</catValu>
+        <labl>32</labl>
+      </catgry>
+      <catgry>
+        <catValu>031</catValu>
+        <labl>31</labl>
+      </catgry>
+      <catgry>
+        <catValu>030</catValu>
+        <labl>30</labl>
+      </catgry>
+      <catgry>
+        <catValu>029</catValu>
+        <labl>29</labl>
+      </catgry>
+      <catgry>
+        <catValu>028</catValu>
+        <labl>28</labl>
+      </catgry>
+      <catgry>
+        <catValu>027</catValu>
+        <labl>27</labl>
+      </catgry>
+      <catgry>
+        <catValu>026</catValu>
+        <labl>26</labl>
+      </catgry>
+      <catgry>
+        <catValu>025</catValu>
+        <labl>25</labl>
+      </catgry>
+      <catgry>
+        <catValu>024</catValu>
+        <labl>24</labl>
+      </catgry>
+      <catgry>
+        <catValu>023</catValu>
+        <labl>23</labl>
+      </catgry>
+      <catgry>
+        <catValu>022</catValu>
+        <labl>22</labl>
+      </catgry>
+      <catgry>
+        <catValu>021</catValu>
+        <labl>21</labl>
+      </catgry>
+      <catgry>
+        <catValu>020</catValu>
+        <labl>20</labl>
+      </catgry>
+      <catgry>
+        <catValu>019</catValu>
+        <labl>19</labl>
+      </catgry>
+      <catgry>
+        <catValu>018</catValu>
+        <labl>18</labl>
+      </catgry>
+      <catgry>
+        <catValu>017</catValu>
+        <labl>17</labl>
+      </catgry>
+      <catgry>
+        <catValu>016</catValu>
+        <labl>16</labl>
+      </catgry>
+      <catgry>
+        <catValu>015</catValu>
+        <labl>15</labl>
+      </catgry>
+      <catgry>
+        <catValu>014</catValu>
+        <labl>14</labl>
+      </catgry>
+      <catgry>
+        <catValu>013</catValu>
+        <labl>13</labl>
+      </catgry>
+      <catgry>
+        <catValu>012</catValu>
+        <labl>12</labl>
+      </catgry>
+      <catgry>
+        <catValu>011</catValu>
+        <labl>11</labl>
+      </catgry>
+      <catgry>
+        <catValu>010</catValu>
+        <labl>10</labl>
+      </catgry>
+      <catgry>
+        <catValu>009</catValu>
+        <labl>9</labl>
+      </catgry>
+      <catgry>
+        <catValu>008</catValu>
+        <labl>8</labl>
+      </catgry>
+      <catgry>
+        <catValu>007</catValu>
+        <labl>7</labl>
+      </catgry>
+      <catgry>
+        <catValu>006</catValu>
+        <labl>6</labl>
+      </catgry>
+      <catgry>
+        <catValu>005</catValu>
+        <labl>5</labl>
+      </catgry>
+      <catgry>
+        <catValu>004</catValu>
+        <labl>4</labl>
+      </catgry>
+      <catgry>
+        <catValu>003</catValu>
+        <labl>3</labl>
+      </catgry>
+      <catgry>
+        <catValu>002</catValu>
+        <labl>2 years</labl>
+      </catgry>
+      <catgry>
+        <catValu>001</catValu>
+        <labl>1 year</labl>
+      </catgry>
+      <catgry>
+        <catValu>000</catValu>
+        <labl>Less than 1 year</labl>
+      </catgry>
+      <concept vocab="IPUMS">Demographic Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="SEX" files="ExtractData" name="SEX" intrvl="discrete" dcml="0">
+      <location StartPos="31" width="1" EndPos="31"/>
+      <labl>Sex</labl>
+      <txt><![CDATA[SEX reports the sex (gender) of the respondent.]]></txt>
+      <catgry>
+        <catValu>9</catValu>
+        <labl>Unknown</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Female</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Male</labl>
+      </catgry>
+      <concept vocab="IPUMS">Demographic Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="BD2011A_DISAB" files="ExtractData" name="BD2011A_DISAB" intrvl="discrete" dcml="0">
+      <location StartPos="32" width="1" EndPos="32"/>
+      <labl>Type of disability</labl>
+      <qstn><qstnLit><![CDATA[
+
+19. Type of disability
+
+[] 0 None
+[] 1 Speech
+[] 2 Vision
+[] 3 Hearing
+[] 4 Physical
+[] 5 Mental
+[] 6 Autistic
+
+
+
+
+
+Q19. Disability: if no disability then write 0 in the blank box, if speaking problem write 1 in blank box, if vision problem then write 2 in blank box, if listening problem then write 3 in the blank box, if physical problem then write 4 in the blank box, if mental problem then write 5 in the blank box, if autistic write 6 in the blank box.
+
+]]></qstnLit><ivuInstr><![CDATA[
+
+Question-19. Is Disabled? 
+According to Disabled Welfare Act 2010 person who is by born or cause of others physically unable or completely/partly handicapped or mentally retarded is considered as Disabled. In this census as per recommendation of the Washington Group disabled has been categorized into six categories. 
+Ask the respondent is there any body in this household who is having trouble in speaking, seeing, listening, physical or mental. Ask in this regards.
+For person having none of the above problem enter zero in the check box;
+For person having problem in speaking enter [1] in the check box;
+For person having problem in eye side even using spectacle enter [2] in the check box;
+For person having listening problem even using Hearing Aid unable to listen enter [3] 
+For handicapped person unable to move freely enter [4] in the check box;
+For person mentally retarded enter [5] in the check box;
+For autistic person lack of intelligence enter [6] in the check box.
+
+]]></ivuInstr></qstn>
+      <universe clusion="I">All persons</universe>
+      <txt><![CDATA[This variable indicates the type of disability that a person may have.]]></txt>
+      <catgry>
+        <catValu>0</catValu>
+        <labl>No disability</labl>
+      </catgry>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Speech</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Vision</labl>
+      </catgry>
+      <catgry>
+        <catValu>3</catValu>
+        <labl>Hearing</labl>
+      </catgry>
+      <catgry>
+        <catValu>4</catValu>
+        <labl>Physical</labl>
+      </catgry>
+      <catgry>
+        <catValu>5</catValu>
+        <labl>Mental</labl>
+      </catgry>
+      <catgry>
+        <catValu>6</catValu>
+        <labl>Autistic</labl>
+      </catgry>
+      <concept vocab="IPUMS">Disability Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="BD2011A_EDATTAN" files="ExtractData" name="BD2011A_EDATTAN" intrvl="discrete" dcml="0">
+      <location StartPos="33" width="2" EndPos="34"/>
+      <labl>Educational attainment</labl>
+      <qstn><qstnLit><![CDATA[
+
+For members age 7 years and above
+[Questions 21-25 were asked for persons 7 years of age and older.]
+
+
+
+
+21. Highest class passed (write class passed code) _ _
+
+
+
+
+Q21. Highest class passed (year): a code list has been prepared on the basis of years required for a member for passing the highest class, by the board and university for awarding a degree or certificate and is printed on the back page of the tally sheet. Using this code list write appropriate code to the blank boxes for the highest class passed by each member of the household. If someone did not go to school, then the highest class passed code will be 0 0. If someone is ssc passed then highest class passed code will be 1 0. If someone has higher degree than masters then code will be 1 8.
+
+]]></qstnLit><ivuInstr><![CDATA[
+
+Fill out Questions- 21 to 25 only for persons aged 7 years and over.
+
+
+
+
+Question-21. Highest class passed: 
+Ask everybody beginning with the head of household that which highest class they passed. Enter the answer checking with the codes for class printed at opposite page of tally sheet in two digits in the check box. Codes for highest class passed are given below for the convenience of training:
+
+00. No schooling/Not passed class I
+01. Class I
+02. Class II
+03. Class III
+04. Class IV
+05. Class V
+06. Class VI
+07. Class VII
+08. Class VIII
+09. Class IX
+10. SSC or Equivalent
+12. HSC or Equivalent
+15. Degree or Equivalent
+16. Degree (Hons) or Equivalent
+18. Masters or Equivalent
+
+
+Example:
+Enter class code [0][0] if reported no schooling or did not pass class one. 
+Enter [0][5] for person passed class five. 
+Enter [1][5] for person passed highest class Graduation and [1][8] for person passed Masters.
+
+
+]]></ivuInstr></qstn>
+      <universe clusion="I">Persons age 7+ </universe>
+      <txt><![CDATA[This variable indicates the educational attainment.]]></txt>
+      <catgry>
+        <catValu>00</catValu>
+        <labl>No class passed</labl>
+      </catgry>
+      <catgry>
+        <catValu>01</catValu>
+        <labl>Class 1</labl>
+      </catgry>
+      <catgry>
+        <catValu>02</catValu>
+        <labl>Class 2</labl>
+      </catgry>
+      <catgry>
+        <catValu>03</catValu>
+        <labl>Class 3</labl>
+      </catgry>
+      <catgry>
+        <catValu>04</catValu>
+        <labl>Class 4</labl>
+      </catgry>
+      <catgry>
+        <catValu>05</catValu>
+        <labl>Class 5</labl>
+      </catgry>
+      <catgry>
+        <catValu>06</catValu>
+        <labl>Class 6</labl>
+      </catgry>
+      <catgry>
+        <catValu>07</catValu>
+        <labl>Class 7</labl>
+      </catgry>
+      <catgry>
+        <catValu>08</catValu>
+        <labl>Class 8</labl>
+      </catgry>
+      <catgry>
+        <catValu>09</catValu>
+        <labl>Class 9</labl>
+      </catgry>
+      <catgry>
+        <catValu>10</catValu>
+        <labl>Class SSC (secondary school certificate)</labl>
+      </catgry>
+      <catgry>
+        <catValu>12</catValu>
+        <labl>Class HSC (higher secondary certificate)</labl>
+      </catgry>
+      <catgry>
+        <catValu>15</catValu>
+        <labl>Graduation (general)</labl>
+      </catgry>
+      <catgry>
+        <catValu>16</catValu>
+        <labl>Graduation (honors)</labl>
+      </catgry>
+      <catgry>
+        <catValu>18</catValu>
+        <labl>Masters and higher</labl>
+      </catgry>
+      <catgry>
+        <catValu>99</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Education Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+    <var ID="BD2011A_EMPSTAT" files="ExtractData" name="BD2011A_EMPSTAT" intrvl="discrete" dcml="0">
+      <location StartPos="35" width="1" EndPos="35"/>
+      <labl>Activity status</labl>
+      <qstn><qstnLit><![CDATA[
+
+For members age 7 years and above
+[Questions 21-25 were asked for persons 7 years of age and older.]
+
+
+
+
+24. Activity status
+
+[] Employed
+[] Looking for job
+[] Household work
+[] Do not work
+
+
+]]></qstnLit><ivuInstr><![CDATA[
+
+Fill out Questions- 21 to 25 only for persons aged 7 years and over.
+
+
+
+
+Question-24. Working Status:  
+Working status has been categorized into four categories such as working, looking for work, household work and do not work. Enter a cross in the box for 'engaged in work' for working, enter a cross in the box for 'looking for work' for persons who are not currently working but willing for work, enter a cross in the box for 'household work' for persons who are engaged in household work, and enter a cross in the box for 'do not work' for persons who do not work or are unable to work. 
+
+]]></ivuInstr></qstn>
+      <universe clusion="I">Persons age 7+ </universe>
+      <txt><![CDATA[This variable indicates the activity status.]]></txt>
+      <catgry>
+        <catValu>1</catValu>
+        <labl>Employed</labl>
+      </catgry>
+      <catgry>
+        <catValu>2</catValu>
+        <labl>Looking for job</labl>
+      </catgry>
+      <catgry>
+        <catValu>3</catValu>
+        <labl>Household work</labl>
+      </catgry>
+      <catgry>
+        <catValu>4</catValu>
+        <labl>Do not work</labl>
+      </catgry>
+      <catgry>
+        <catValu>8</catValu>
+        <labl>Unknown</labl>
+      </catgry>
+      <catgry>
+        <catValu>9</catValu>
+        <labl>NIU (not in universe)</labl>
+      </catgry>
+      <concept vocab="IPUMS">Work Variables -- PERSON</concept>
+      <varFormat schema="other" type="numeric"/>
+    </var>
+  </dataDscr>
+</codeBook>
