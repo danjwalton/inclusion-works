@@ -5,24 +5,40 @@ setwd("G:/My Drive/Work/GitHub/inclusion-works")
 
 unhs <- fread("project-data/UNHS/UNHS labour + disability.csv")
 #unhs <- unique(fread("project-data/UNHS/UNHS disability.csv")
+unhs[unhs=="YES"] <- 1
+unhs[unhs=="NO"] <- 2
 unhs[unhs=="Don't know"] <- 999
 unhs[is.na(unhs)] <- 999
 unhs <- data.table(sapply(unhs, as.numeric))
 
 unhs$`Employment status` <- as.numeric(NA)
 unhs[
-  #CHK1 == 2 | 
-  CHK2 == 2 | 
-  CHK3 == 2
+  (
+    h2q20A == 2
+    & h2q21A == 2
+    & h2q23A == 2
+    #& h2q24A == 2
+  ) | (
+    h2q25A == 2
+    & h2q25B == 2
+    & h2q25D == 2
+  )
   ]$`Employment status` <- 0
 
 unhs[
-  #CHK1 == 1 |
-  CHK2 == 1 |
-  CHK3 == 1
+  (
+    h2q20A == 1
+    | h2q21A == 1 
+    | h2q23A == 1
+    #| h2q24A == 1
+  ) | (
+    h2q25A == 1
+    | h2q25B == 1
+    | h2q25B == 1
+  )
   ]$`Employment status` <- 1
 
-unhs <- unhs[!is.na(`Employment status`)]
+#unhs <- unhs[!is.na(`Employment status`)]
 
 unhs$Sex <- "Male"
 unhs[which(unhs$Sex_code==2)]$Sex <- "Female"
@@ -67,13 +83,13 @@ unhs.domains <- rbind(cbind(data.frame(Sex="Overall")
 fwrite(unhs.domains, "output/UNHS WA domains.csv")
 
 unhs.domains.employ<- rbind(cbind(data.frame(Sex="Overall")
-                                  ,(unhs[working.age=="Yes", .(Seeing=sum(Seeing*weight)
+                                  ,(unhs[!is.na(`Employment status`) & working.age=="Yes", .(Seeing=sum(Seeing*weight)
                                                                ,Hearing=sum(Hearing*weight)
                                                                ,Walking=sum(Walking*weight)
                                                                ,Remembering=sum(Remembering*weight)
                                                                ,`Self care`=sum(`Self care`*weight)
                                                                ,Communication=sum(Communication*weight)), by=employed]))
-                            ,unhs[working.age=="Yes", .(Seeing=sum(Seeing*weight)
+                            ,unhs[!is.na(`Employment status`) & working.age=="Yes", .(Seeing=sum(Seeing*weight)
                                                         ,Hearing=sum(Hearing*weight)
                                                         ,Walking=sum(Walking*weight)
                                                         ,Remembering=sum(Remembering*weight)
@@ -91,9 +107,9 @@ unhs.domains.employ <- cbind(data.table(employment=c("employed","unemployed"))
 fwrite(unhs.domains.employ, "output/UNHS WA domains employment.csv")
 
 unhs.overall.employ <- rbind(cbind(data.frame(Sex="Overall")
-                                   ,(unhs[working.age=="Yes", .(Disabled=sum(Disability*weight)
+                                   ,(unhs[!is.na(`Employment status`) & working.age=="Yes", .(Disabled=sum(Disability*weight)
                                                                 , `Not disabled`=sum((1-Disability)*weight)), by=employed]))
-                             ,unhs[working.age=="Yes", .(Disabled=sum(Disability*weight)
+                             ,unhs[!is.na(`Employment status`) & working.age=="Yes", .(Disabled=sum(Disability*weight)
                                                          , `Not disabled`=sum((1-Disability)*weight)), by=.(employed, Sex)])
 
 unhs.overall.employ <- cbind(data.table(employment=c("employed","unemployed"))

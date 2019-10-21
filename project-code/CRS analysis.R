@@ -4,10 +4,17 @@ lapply(required.packages, require, character.only = T)
 wd <- "G:/My Drive/Work/GitHub/inclusion-works/"
 setwd(wd)
 
-load("project-data/crs.RData")
+load("project-data/crs 2012-2013.RData")
+load("project-data/crs 2014-2015.RData")
+load("project-data/crs 2016-2017.RData")
+
+crs <- rbind(crs.2012.2013, crs.2014.2015, crs.2016.2017)
+rm(list=c("crs.2012.2013", "crs.2014.2015", "crs.2016.2017"))
 
 keep <- c(
   "crs_id"
+  ,
+  "project_number"
   ,
   "year"
   ,
@@ -33,53 +40,72 @@ keep <- c(
 )
 
 crs <- crs[, ..keep]
+crs <- crs[flow_name == "ODA Loans" | flow_name == "ODA Grants"]
 
 major.keywords <- c(
-  "disabl"
+  "disab", "discapaci", "incapaci", "minusválido", "invalidit", "infirmité"
   #,
   #"disorder"
+  ,
+  "handicap"
   ,
   "impairment", "impaired"
   ,
   "pwd", "gwd", "cwd"
   ,
-  "chronic health", "chronic ill"
+  "chronic health", "chronic ill", "maladie chronique", "enfermedad crónica"
   ,
-  "deaf"
+  "deaf", "sordo", "sourd"
   ,
-  "blind"
+  "blind", "ciego", "aveugle", "eye health"
   ,
-  "special needs"
+  "special needs", "necesidades especiales", "besoins spéciau"
   ,
-  "autistic", "autism"
+  "autistic", "autism", "autist"
   ,
-  "mental health"
+  "mental health", "santé mentale", "salud mental"
   ,
-  "prosthes"
+  "prosthes", "prosthès", "prótesis"
   ,
-  "amputation", "amputee", "amputate"
+  "mobility device", "dispositivo de movilidad", "dispositif de mobilité"
   ,
-  "schizophreni"
+  "wheelchair", "fauteuil roulant", "silla de ruedas"
   ,
-  "sign language"
+  "hearing aid", "audífono", "dispositif d'écoute pour malentendant"
   ,
-  "arthriti"
+  "amputation", "amputee", "amputé", "amputa"
   ,
-  "rheumat"
+  "schizophreni", "esquizofrenia", "schizophrénie"
   ,
-  "dementia"
+  "sign language", "langage des signes", "lenguaje de señas"
+  ,
+  "arthriti", "artritis", "arthrite"
+  ,
+  "rheumat", "rhumat", "reumat"
+  ,
+  "dementia", "démence", "demencia"
+  ,
+  "spina"
+  ,
+  "hydrocephalus", "hidrocefalia", "l'hydrocéphalie"
+  ,
+  "diabetes", "diabète"
+  ,
+  "atlas alliance", "atlas allinance"
+  ,
+  "dpos ", "dpo ", "dpo's", "dpos[.]", "dpo[.]", "dpo's[.]"
 )
 
 minor.keywords <- c(
-  "war victim"
+  "war victim", "victimas de guerra", "victimes de guerre"
   ,
-  "landmine"
+  "landmine victim", "victime de mine", "víctima de minas terrestres"
   ,
-  "wounded"
-  ,
-  "injured", "injuries"
-  ,
-  "therapy"
+  #"wounded"
+  #,
+  #"injured", "injuries"
+  #,
+  "therapy", "terapia", "thérapie"
 )
 
 disqualifying.keywords <- c(
@@ -89,12 +115,34 @@ disqualifying.keywords <- c(
   ,
   "cgpwd"
   ,
+  "cpwd"
+  ,
+  "rvcwda"
+  ,
+  "pwdtc"
+  ,
   "road"
   ,
   "highway"
   ,
   "environmental health"
+  ,
+  "rehydration therapy"
+  ,
+  "-dpo", "cidpo", "hdpo", "dpo series", "financial sector dpo", "dpo (ri)"
+  ,
+  "growth and compet"
+  ,
+  "combination therap"
   )
+
+disqualifying.sectors <- c(
+  "Public finance management (PFM)"
+  ,
+  "Domestic revenue mobilisation"
+  ,
+  "Mineral/mining policy and administrative management"
+)
 
 crs$major <- 0
 crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$long_description))]$major <- 1
@@ -106,6 +154,7 @@ crs[grepl(paste(minor.keywords, collapse = "|"), tolower(paste(crs$project_title
 
 crs$disqualified <- 0
 crs[major + minor > 0][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(crs[major + minor > 0]$project_title, crs[minor+major>0]$short_description, crs[major + minor > 0]$long_description)))]$disqualified <- 1
+crs[major + minor > 0][purpose_name %in% disqualifying.sectors]$disqualified <- 1
 
 years <- crs[,.(
   major=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)
@@ -143,3 +192,5 @@ recipients <- crs[,.(
   , minor.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
 )
 , by=.(recipient_name)]
+
+tocheck <- crs[minor==1 | disqualified == 1]
