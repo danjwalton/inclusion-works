@@ -131,6 +131,14 @@ disqualifying.keywords <- c(
   "combination therap"
 )
 
+inclusion.keywords <- c(
+  "inclus"
+  ,
+  "empower", "habiliter", "autorizar"
+  ,
+  "rights", "droits", "derechos"
+)
+
 fts$major <- 0
 fts[grepl(paste(major.keywords, collapse = "|"), tolower(fts$description))]$major <- 1
 fts[grepl(paste(major.keywords, collapse = "|"), tolower(fts$destination_Project_name))]$major <- 2
@@ -138,67 +146,88 @@ fts[grepl(paste(major.keywords, collapse = "|"), tolower(fts$destination_Project
 fts$minor <- 0
 fts[grepl(paste(minor.keywords, collapse = "|"), tolower(fts$description))]$minor <- 1
 
+fts$inclusion <- 0
+fts[major + minor > 0][grepl(paste(inclusion.keywords, collapse = "|"), tolower(paste(fts[major + minor > 0]$destination_Project_name, fts[major + minor > 0]$description)))]$inclusion <- 1
+
 fts$disqualified <- 0
 fts[major + minor > 0][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(fts[major + minor > 0]$destination_Project_name, fts[major + minor > 0]$description)))]$disqualified <- 1
 
 years <- fts[,.(
-  major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
+  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
+  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
+  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
+  , total.share=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
   , major.share=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
   , minor.share=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
+  , total.inclusive.share=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(amountUSD, na.rm=T)
+  , major.inclusive.share=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(amountUSD, na.rm=T)
+  , minor.inclusive.share=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)/sum(amountUSD, na.rm=T)
 )
 , by=.(budgetYear)]
 
+years <- years[order(budgetYear)]
+fwrite(years, "output/fts years.csv")
+
+colnames <- c("total", "major", "minor", "none", "total.inclusive", "major.inclusive", "minor.inclusive")
+
 sectors <- fts[,.(
-  major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
+  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
+  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
+  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
 )
 , by=.(destination_GlobalCluster_name)]
 
 sectors <- sectors[major+minor>0]
 
-sectors <- sectors[,
-                   strsplit(destination_GlobalCluster_name, "|", fixed = T)
-                   , by = .(major, minor, none, destination_GlobalCluster_name)
-                   ][,V2:=(nchar(destination_GlobalCluster_name) - nchar(gsub("[|]", "", destination_GlobalCluster_name)) + 1)
-                     ][,.(destination_GlobalCluster_name = trimws(V1),count = V2,major,minor,none)
-                       ][, .(major=sum(major/count), minor=sum(minor/count), none=sum(none/count)), by=destination_GlobalCluster_name
-                         ][,.(destination_GlobalCluster_name, major, minor, none, major.share=major/sum(major,minor,none), minor.share=minor/sum(major,minor,none))]
+sectors <- sectors[, strsplit(destination_GlobalCluster_name, " | ", fixed = T), by = names(sectors)
+                   ][,count:=(nchar(destination_GlobalCluster_name) - nchar(gsub("[|]", "", destination_GlobalCluster_name)) + 1)
+                     ][, lapply(.SD, sum), .SDcols=colnames , by=V1
+                       ][, c(paste0(colnames,".share")) := lapply(.SD, function(x) x/(total+none)), .SDcols=colnames, by=V1]
+
+fwrite(sectors, "output/fts sectors.csv")
 
 donors <- fts[,.(
-  major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
+  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
+  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
-  , major.share=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
-  , minor.share=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
+  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
 )
 , by=.(source_Location_name)]
 
-donors <- donors[,
-                 strsplit(source_Location_name, "|", fixed = T)
-                 , by = .(major, minor, none, source_Location_name)
-                 ][,V2:=(nchar(source_Location_name) - nchar(gsub("[|]", "", source_Location_name)) + 1)
-                   ][,.(source_Location_name = trimws(V1),count = V2,major,minor,none)
-                     ][, .(major=sum(major/count), minor=sum(minor/count), none=sum(none/count)), by=source_Location_name
-                       ][,.(source_Location_name, major, minor, none, major.share=major/sum(major,minor,none), minor.share=minor/sum(major,minor,none))]
+donors <- donors[, strsplit(source_Location_name, " | ", fixed = T), by = names(donors)
+                 ][,count:=(nchar(source_Location_name) - nchar(gsub("[|]", "", source_Location_name)) + 1)
+                   ][, lapply(.SD, sum), .SDcols=colnames , by=V1
+                     ][, c(paste0(colnames,".share")) := lapply(.SD, function(x) x/(total+none)), .SDcols=colnames, by=V1]
+
+fwrite(donors, "output/fts donors.csv")
 
 recipients <- fts[,.(
-  major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
+  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
+  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
-  , major.share=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
-  , minor.share=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
+  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
 )
 , by=.(destination_Location_name)]
 
-recipients <- recipients[,
-                 strsplit(destination_Location_name, "|", fixed = T)
-                 , by = .(major, minor, none, destination_Location_name)
-                 ][,V2:=(nchar(destination_Location_name) - nchar(gsub("[|]", "", destination_Location_name)) + 1)
-                   ][,.(destination_Location_name = trimws(V1),count = V2,major,minor,none)
-                     ][, .(major=sum(major/count), minor=sum(minor/count), none=sum(none/count)), by=destination_Location_name
-                       ][,.(destination_Location_name, major, minor, none, major.share=major/sum(major,minor,none), minor.share=minor/sum(major,minor,none))]
+recipients <- recipients[, strsplit(destination_Location_name, " | ", fixed = T), by = names(recipients)
+                         ][,count:=(nchar(destination_Location_name) - nchar(gsub("[|]", "", destination_Location_name)) + 1)
+                           ][, lapply(.SD, sum), .SDcols=colnames , by=V1
+                             ][, c(paste0(colnames,".share")) := lapply(.SD, function(x) x/(total+none)), .SDcols=colnames, by=V1]
+
+fwrite(recipients, "output/fts recipients.csv")
 
 tocheck <- fts[minor==1 | disqualified == 1]

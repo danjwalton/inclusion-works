@@ -144,6 +144,15 @@ disqualifying.sectors <- c(
   "Mineral/mining policy and administrative management"
 )
 
+
+inclusion.keywords <- c(
+  "inclus"
+  ,
+  "empower", "habiliter", "autorizar"
+  ,
+  "rights", "droits", "derechos"
+)
+
 crs$major <- 0
 crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$long_description))]$major <- 1
 crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$short_description))]$major <- 2
@@ -152,45 +161,76 @@ crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$project_title))]$ma
 crs$minor <- 0
 crs[grepl(paste(minor.keywords, collapse = "|"), tolower(paste(crs$project_title, crs$short_description, crs$long_description)))]$minor <- 1
 
+crs$inclusion <- 0
+crs[major + minor > 0][grepl(paste(inclusion.keywords, collapse = "|"), tolower(paste(crs[major + minor > 0]$project_title, crs[minor+major>0]$short_description, crs[major + minor > 0]$long_description)))]$inclusion <- 1
+
 crs$disqualified <- 0
 crs[major + minor > 0][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(crs[major + minor > 0]$project_title, crs[minor+major>0]$short_description, crs[major + minor > 0]$long_description)))]$disqualified <- 1
 crs[major + minor > 0][purpose_name %in% disqualifying.sectors]$disqualified <- 1
 
 years <- crs[,.(
-  major=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)
+  total=sum(usd_disbursement_deflated[major + minor > 0 & disqualified == 0], na.rm=T)
+  , major=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(usd_disbursement_deflated[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
+  , total.inclusive=sum(usd_disbursement_deflated[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , major.inclusive=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
+  , total.share=sum(usd_disbursement_deflated[major + minor > 0 & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
   , major.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
   , minor.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , total.inclusive.share=sum(usd_disbursement_deflated[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , major.inclusive.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , minor.inclusive.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
   )
   , by=.(year)]
+
+fwrite(years, "output/crs years.csv")
 
 sectors <- crs[,.(
   major=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(usd_disbursement_deflated[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
+  , major.inclusive=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
   , major.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
   , minor.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
-  )
+  , major.inclusive.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , minor.inclusive.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+)
   , by=.(purpose_name)]
 sectors <- sectors[major+minor>0]
+
+fwrite(sectors, "output/crs sectors.csv")
 
 donors <- crs[,.(
   major=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(usd_disbursement_deflated[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
+  , major.inclusive=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
   , major.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
   , minor.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , major.inclusive.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , minor.inclusive.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
 )
 , by=.(donor_name)]
+
+fwrite(donors, "output/crs donors.csv")
 
 recipients <- crs[,.(
   major=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)
   , minor=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
   , none=sum(usd_disbursement_deflated[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
+  , major.inclusive=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
+  , minor.inclusive=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
   , major.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
   , minor.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , major.inclusive.share=sum(usd_disbursement_deflated[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
+  , minor.inclusive.share=sum(usd_disbursement_deflated[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)/sum(usd_disbursement_deflated, na.rm=T)
 )
 , by=.(recipient_name)]
+
+fwrite(recipients, "output/crs recipients.csv")
 
 tocheck <- crs[minor==1 | disqualified == 1]
