@@ -1,4 +1,4 @@
-required.packages <- c("reshape2", "ggplot2", "data.table")
+required.packages <- c("reshape2", "ggplot2", "data.table", "WDI")
 lapply(required.packages, require, character.only = T)
 
 wd <- "G:/My Drive/Work/GitHub/inclusion-works/"
@@ -19,7 +19,11 @@ keep <- c(
   ,
   "source_Location_name"
   ,
+  "source_iso3"
+  ,
   "destination_Location_name"
+  ,
+  "destination_iso3"
   ,
   "originalAmount"
   ,
@@ -34,7 +38,7 @@ keep <- c(
 )
 
 fts <- fts[, ..keep]
-
+fts <- unique(fts)
 fts$amountUSD <- as.double(fts$amountUSD)
 
 major.keywords <- c(
@@ -139,95 +143,61 @@ inclusion.keywords <- c(
   "rights", "droits", "derechos"
 )
 
-fts$major <- 0
-fts[grepl(paste(major.keywords, collapse = "|"), tolower(fts$description))]$major <- 1
-fts[grepl(paste(major.keywords, collapse = "|"), tolower(fts$destination_Project_name))]$major <- 2
-
-fts$minor <- 0
-fts[grepl(paste(minor.keywords, collapse = "|"), tolower(fts$description))]$minor <- 1
-
-fts$inclusion <- 0
-fts[major + minor > 0][grepl(paste(inclusion.keywords, collapse = "|"), tolower(paste(fts[major + minor > 0]$destination_Project_name, fts[major + minor > 0]$description)))]$inclusion <- 1
-
-fts$disqualified <- 0
-fts[major + minor > 0][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(fts[major + minor > 0]$destination_Project_name, fts[major + minor > 0]$description)))]$disqualified <- 1
-
-years <- fts[,.(
-  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
-  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
-  , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
-  , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
-  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
-  , total.share=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
-  , major.share=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
-  , minor.share=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)/sum(amountUSD, na.rm=T)
-  , total.inclusive.share=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(amountUSD, na.rm=T)
-  , major.inclusive.share=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)/sum(amountUSD, na.rm=T)
-  , minor.inclusive.share=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)/sum(amountUSD, na.rm=T)
+employment.keywords <- c(
+  "employ", "emplear", "empleo", "emploi"
+  ,
+  "travail", "trabajo"
+  ,
+  "job"
+  ,
+  "labour", "labor[.]", "labor "
+  ,
+  "cash for work"
 )
-, by=.(budgetYear)]
 
-years <- years[order(budgetYear)]
-fwrite(years, "output/fts years.csv")
+splitcols <- c("source_Location_name", "destination_Location_name", "destination_GlobalCluster_name")
+fts.split <- fts
+fts.split[fts.split==""] <- ".."
 
-colnames <- c("total", "major", "minor", "none", "total.inclusive", "major.inclusive", "minor.inclusive")
+for(col in splitcols){
+  newcol <- paste0(col, "_split")
+  fts.split <- fts.split[, strsplit(get(col), " | ", fixed = T), by = names(fts.split)
+                         ][,count:=(nchar(get(col)) - nchar(gsub("[|]", "", get(col))) + 1)
+                           ][, amountUSD:=amountUSD/count , by = names(fts.split)
+                             ]
+  names(fts.split)[names(fts.split)=="V1"] <- newcol
+  fts.split$count <- NULL
+}
 
-sectors <- fts[,.(
-  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
-  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
-  , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
-  , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
-  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
-)
-, by=.(destination_GlobalCluster_name)]
+gdp <- as.data.table(WDI("all", c(gdp_constant_2010usd = "NY.GDP.MKTP.KD", gdp_current_usd = "NY.GDP.MKTP.CD"), start=2012, end=2018, extra=T))
+gdp[, index2010:=gdp_current_usd/gdp_constant_2010usd, by=.(country, year)]
+gdp[, index2016:=index2010[year==2016]/index2010, by=.(country, year)]
 
-sectors <- sectors[major+minor>0]
+fts.split <- merge(fts.split, gdp[, c("iso3c", "year", "index2016")], by.x=c("budgetYear", "source_iso3"), by.y=c("year", "iso3c"), all.x=T)
+fts.split$amountUSD2016 <- fts.split$amountUSD / fts.split$index2016
 
-sectors <- sectors[, strsplit(destination_GlobalCluster_name, " | ", fixed = T), by = names(sectors)
-                   ][,count:=(nchar(destination_GlobalCluster_name) - nchar(gsub("[|]", "", destination_GlobalCluster_name)) + 1)
-                     ][, lapply(.SD, sum), .SDcols=colnames , by=V1
-                       ][, c(paste0(colnames,".share")) := lapply(.SD, function(x) x/(total+none)), .SDcols=colnames, by=V1]
+fts.split$relevance <- "None"
+fts.split[grepl(paste(major.keywords, collapse = "|"), tolower(fts.split$description))]$relevance <- "Minor"
+fts.split[grepl(paste(major.keywords, collapse = "|"), tolower(fts.split$destination_Project_name))]$relevance <- "Major"
+fts.split[grepl(paste(minor.keywords, collapse = "|"), tolower(fts.split$description))]$relevance <- "Minor"
 
-fwrite(sectors, "output/fts sectors.csv")
+fts.split[relevance != "None"][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(fts.split[relevance != "None"]$destination_Project_name, fts.split[relevance != "None"]$description)))]$relevance <- "None"
 
-donors <- fts[,.(
-  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
-  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
-  , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
-  , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
-  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
-)
-, by=.(source_Location_name)]
+fts.split$inclusion <- "Not inclusion"
+fts.split[relevance != "None"][grepl(paste(inclusion.keywords, collapse = "|"), tolower(paste(fts.split[relevance != "None"]$destination_Project_name, fts.split[relevance != "None"]$description)))]$inclusion <- "Inclusion"
 
-donors <- donors[, strsplit(source_Location_name, " | ", fixed = T), by = names(donors)
-                 ][,count:=(nchar(source_Location_name) - nchar(gsub("[|]", "", source_Location_name)) + 1)
-                   ][, lapply(.SD, sum), .SDcols=colnames , by=V1
-                     ][, c(paste0(colnames,".share")) := lapply(.SD, function(x) x/(total+none)), .SDcols=colnames, by=V1]
+fts.split$employment <- "Not employment"
+fts.split[relevance != "None"][grepl(paste(employment.keywords, collapse = "|"), tolower(paste(fts.split[relevance != "None"]$destination_Project_name, fts.split[relevance != "None"]$description)))]$employment <- "Employment"
 
-fwrite(donors, "output/fts donors.csv")
+fts.years <- dcast.data.table(fts.split, budgetYear ~ relevance + inclusion + employment, value.var = "amountUSD2016", fun.aggregate = function (x) sum(x, na.rm=T))
+fts.donors <- dcast.data.table(fts.split, source_Location_name_split ~ relevance + inclusion + employment, value.var = "amountUSD2016", fun.aggregate = function (x) sum(x, na.rm=T))
+fts.recipients <- dcast.data.table(fts.split, destination_Location_name_split ~ relevance + inclusion + employment, value.var = "amountUSD2016", fun.aggregate = function (x) sum(x, na.rm=T))
+fts.sectors <- dcast.data.table(fts.split, destination_GlobalCluster_name_split ~ relevance + inclusion + employment, value.var = "amountUSD2016", fun.aggregate = function (x) sum(x, na.rm=T))
 
-recipients <- fts[,.(
-  total=sum(amountUSD[major + minor > 0 & disqualified == 0], na.rm=T)
-  , major=sum(amountUSD[major == 2 & disqualified == 0], na.rm=T)
-  , minor=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0], na.rm=T)
-  , none=sum(amountUSD[(major == 0 & minor == 0) | disqualified == 1], na.rm=T)
-  , total.inclusive=sum(amountUSD[major + minor > 0 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , major.inclusive=sum(amountUSD[major == 2 & disqualified == 0 & inclusion == 1], na.rm=T)
-  , minor.inclusive=sum(amountUSD[(major == 1 | (minor ==1 & major < 2)) & disqualified == 0 & inclusion == 1], na.rm=T)
-)
-, by=.(destination_Location_name)]
+fwrite(fts.years, "output/fts years.csv")
 
-recipients <- recipients[, strsplit(destination_Location_name, " | ", fixed = T), by = names(recipients)
-                         ][,count:=(nchar(destination_Location_name) - nchar(gsub("[|]", "", destination_Location_name)) + 1)
-                           ][, lapply(.SD, sum), .SDcols=colnames , by=V1
-                             ][, c(paste0(colnames,".share")) := lapply(.SD, function(x) x/(total+none)), .SDcols=colnames, by=V1]
+fwrite(fts.sectors, "output/fts sectors.csv")
 
-fwrite(recipients, "output/fts recipients.csv")
+fwrite(fts.donors, "output/fts donors.csv")
 
-tocheck <- fts[minor==1 | disqualified == 1]
+fwrite(fts.recipients, "output/fts recipients.csv")
