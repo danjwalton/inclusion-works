@@ -170,8 +170,9 @@ for(col in splitcols){
 }
 
 gdp <- as.data.table(WDI("all", c(gdp_constant_2010usd = "NY.GDP.MKTP.KD", gdp_current_usd = "NY.GDP.MKTP.CD"), start=2012, end=2018, extra=T))
-gdp[, index2010:=gdp_current_usd/gdp_constant_2010usd, by=.(country, year)]
-gdp[, .(index2016=index2010[year==2016]/index2010), by=.(country, year)]
+gdp[, index2010:=gdp_current_usd/gdp_constant_2010usd, by=.(iso3c, year)]
+gdp[, index2010.2016:=gdp[year==2016]$index2010, by=.(year)]
+gdp <- gdp[, .(index2016=index2010.2016/index2010), by=.(iso3c, year)]
 
 fts.split <- merge(fts.split, gdp[, c("iso3c", "year", "index2016")], by.x=c("budgetYear", "source_iso3"), by.y=c("year", "iso3c"), all.x=T)
 fts.split$amountUSD2016 <- fts.split$amountUSD / fts.split$index2016
