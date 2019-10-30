@@ -171,15 +171,15 @@ for(col in splitcols){
 
 gdp <- as.data.table(WDI("all", c(gdp_constant_2010usd = "NY.GDP.MKTP.KD", gdp_current_usd = "NY.GDP.MKTP.CD"), start=2012, end=2018, extra=T))
 gdp[, index2010:=gdp_current_usd/gdp_constant_2010usd, by=.(country, year)]
-gdp[, index2016:=index2010[year==2016]/index2010, by=.(country, year)]
+gdp[, .(index2016=index2010[year==2016]/index2010), by=.(country, year)]
 
 fts.split <- merge(fts.split, gdp[, c("iso3c", "year", "index2016")], by.x=c("budgetYear", "source_iso3"), by.y=c("year", "iso3c"), all.x=T)
 fts.split$amountUSD2016 <- fts.split$amountUSD / fts.split$index2016
 
 fts.split$relevance <- "None"
-fts.split[grepl(paste(major.keywords, collapse = "|"), tolower(fts.split$description))]$relevance <- "Minor"
-fts.split[grepl(paste(major.keywords, collapse = "|"), tolower(fts.split$destination_Project_name))]$relevance <- "Major"
 fts.split[grepl(paste(minor.keywords, collapse = "|"), tolower(fts.split$description))]$relevance <- "Minor"
+fts.split[grepl(paste(major.keywords, collapse = "|"), tolower(fts.split$description))]$relevance <- "Minor" #Maybe Major?
+fts.split[grepl(paste(major.keywords, collapse = "|"), tolower(fts.split$destination_Project_name))]$relevance <- "Major"
 
 fts.split[relevance != "None"][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(fts.split[relevance != "None"]$destination_Project_name, fts.split[relevance != "None"]$description)))]$relevance <- "None"
 
@@ -195,9 +195,6 @@ fts.recipients <- dcast.data.table(fts.split, destination_Location_name_split ~ 
 fts.sectors <- dcast.data.table(fts.split, destination_GlobalCluster_name_split ~ relevance + inclusion + employment, value.var = "amountUSD2016", fun.aggregate = function (x) sum(x, na.rm=T))
 
 fwrite(fts.years, "output/fts years.csv")
-
 fwrite(fts.sectors, "output/fts sectors.csv")
-
 fwrite(fts.donors, "output/fts donors.csv")
-
 fwrite(fts.recipients, "output/fts recipients.csv")

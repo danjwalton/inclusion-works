@@ -129,6 +129,8 @@ disqualifying.keywords <- c(
   ,
   "environmental health"
   ,
+  "environmental condition"
+  ,
   "rehydration therapy"
   ,
   "-dpo", "cidpo", "hdpo", "dpo series", "financial sector dpo", "dpo (ri)"
@@ -168,9 +170,9 @@ employment.keywords <- c(
 )
 
 crs$relevance <- "None"
+crs[grepl(paste(minor.keywords, collapse = "|"), tolower(paste(crs$project_title, crs$short_description, crs$long_description)))]$relevance <- "Minor"
 crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$long_description))]$relevance <- "Minor"
-crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$short_description))]$relevance <- "Major"
-crs[grepl(paste(minor.keywords, collapse = "|"), tolower(crs$project_title))]$relevance <- "Major"
+crs[grepl(paste(major.keywords, collapse = "|"), tolower(paste(crs$short_description, crs$project_title)))]$relevance <- "Major"
 
 crs[relevance != "None"][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(crs[relevance != "None"]$project_title, crs[relevance != "None"]$short_description, crs[relevance != "None"]$long_description)))]$relevance <- "None"
 crs[relevance != "None"][purpose_name %in% disqualifying.sectors]$relevance <- "None"
@@ -187,9 +189,6 @@ crs.recipients <- dcast.data.table(crs, recipient_name ~ relevance + inclusion +
 crs.sectors <- dcast.data.table(crs, purpose_name ~ relevance + inclusion + employment, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 
 fwrite(crs.years, "output/crs years.csv")
-
 fwrite(crs.sectors, "output/crs sectors.csv")
-
 fwrite(crs.donors, "output/crs donors.csv")
-
 fwrite(crs.recipients, "output/crs recipients.csv")
