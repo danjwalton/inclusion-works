@@ -87,7 +87,7 @@ major.keywords <- c(
   ,
   "dementia", "démence", "demencia"
   ,
-  "spina"
+  "spina "
   ,
   "hydrocephalus", "hidrocefalia", "l'hydrocéphalie"
   ,
@@ -102,12 +102,12 @@ minor.keywords <- c(
   "war victim", "victimas de guerra", "victimes de guerre"
   ,
   "landmine victim", "victime de mine", "víctima de minas terrestres"
-  ,
+  #,
   #"wounded"
   #,
   #"injured", "injuries"
   #,
-  "therapy", "terapia", "thérapie"
+  #"physiotherapy", "fisioterapia"
 )
 
 disqualifying.keywords <- c(
@@ -133,19 +133,29 @@ disqualifying.keywords <- c(
   ,
   "rehydration therapy"
   ,
-  "-dpo", "cidpo", "hdpo", "dpo series", "financial sector dpo", "dpo (ri)"
+  "-dpo", "cidpo", "hdpo", "dpo series", "financial sector dpo", "dpo (ri)", "management dpo", "poverty dpo", "growth dpo", "support dpo", "system dpo"
+  ,
+  "fiscal"
   ,
   "growth and compet"
   ,
   "combination therap"
+  ,
+  "emergency dpo"
+  ,
+  "conventional weapons", "weapons destruction"
+  ,
+  "fairtradeafrica"
+  ,
+  "blindness prevention", "avoidable blindness"
   )
 
 disqualifying.sectors <- c(
   "Public finance management (PFM)"
   ,
   "Domestic revenue mobilisation"
-  ,
-  "Mineral/mining policy and administrative management"
+  #,
+  #"Mineral/mining policy and administrative management"
 )
 
 
@@ -167,12 +177,19 @@ employment.keywords <- c(
   "labour", "labor[.]", "labor "
   ,
   "cash for work"
+  ,
+  "vocation"
 )
 
 crs$relevance <- "None"
 crs[grepl(paste(minor.keywords, collapse = "|"), tolower(paste(crs$project_title, crs$short_description, crs$long_description)))]$relevance <- "Minor"
 crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$long_description))]$relevance <- "Minor"
 crs[grepl(paste(major.keywords, collapse = "|"), tolower(paste(crs$short_description, crs$project_title)))]$relevance <- "Major"
+
+crs$check <- "No"
+crs[relevance == "Minor"]$check <- "potential false positive"
+crs[relevance != "None"][purpose_name %in% disqualifying.sectors]$check <- "potential false negative"
+crs[relevance != "None"][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(crs[relevance != "None"]$project_title, crs[relevance != "None"]$short_description, crs[relevance != "None"]$long_description)))]$check <- "potential false negative"
 
 crs[relevance != "None"][grepl(paste(disqualifying.keywords, collapse = "|"), tolower(paste(crs[relevance != "None"]$project_title, crs[relevance != "None"]$short_description, crs[relevance != "None"]$long_description)))]$relevance <- "None"
 crs[relevance != "None"][purpose_name %in% disqualifying.sectors]$relevance <- "None"
@@ -183,12 +200,23 @@ crs[relevance != "None"][grepl(paste(inclusion.keywords, collapse = "|"), tolowe
 crs$employment <- "Not employment"
 crs[relevance != "None"][grepl(paste(employment.keywords, collapse = "|"), tolower(paste(crs[relevance != "None"]$project_title, crs[relevance != "None"]$short_description, crs[relevance != "None"]$long_description)))]$employment <- "Employment"
 
-crs.years <- dcast.data.table(crs, year ~ relevance + inclusion + employment, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
-crs.donors <- dcast.data.table(crs, donor_name ~ relevance + inclusion + employment, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
-crs.recipients <- dcast.data.table(crs, recipient_name ~ relevance + inclusion + employment, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
-crs.sectors <- dcast.data.table(crs, purpose_name ~ relevance + inclusion + employment, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
+crs$gender <- as.character(crs$gender)
+crs[is.na(gender)]$gender <- "0"
+crs[gender != "1" & gender != "2"]$gender <- "No gender component"
+crs[gender == "1"]$gender <- "Partial gender component"
+crs[gender == "2"]$gender <- "Major gender component"
+
+crs.years <- dcast.data.table(crs, year ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
+crs.donors <- dcast.data.table(crs, year + donor_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
+crs.recipients <- dcast.data.table(crs, year + recipient_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
+crs.sectors <- dcast.data.table(crs, year + purpose_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 
 fwrite(crs.years, "output/crs years.csv")
 fwrite(crs.sectors, "output/crs sectors.csv")
 fwrite(crs.donors, "output/crs donors.csv")
 fwrite(crs.recipients, "output/crs recipients.csv")
+
+tocheck.positive <- crs[check == "potential false positive"]
+tocheck.negative <- crs[check == "potential false negative"]
+fwrite(tocheck.positive, "output/crs check positives.csv")
+fwrite(tocheck.negative, "output/crs check negatives.csv")
