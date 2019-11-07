@@ -45,7 +45,7 @@ crs <- crs[, ..keep]
 crs <- crs[flow_name == "ODA Loans" | flow_name == "ODA Grants"]
 
 major.keywords <- c(
-  "disab", "discapaci", "incapaci", "minusválido", "invalidit", "infirmité"
+  "disab", "discapaci", "incapaci", "minusválido", "invalidit", "infirmité", "d-isab"
   #,
   #"disorder"
   ,
@@ -93,9 +93,9 @@ major.keywords <- c(
   ,
   "diabetes", "diabète"
   ,
-  "atlas alliance", "atlas allinance"
-  ,
-  "dpos ", "dpo ", "dpo's", "dpos[.]", "dpo[.]", "dpo's[.]"
+  "atlas alliance", "atlas allinance", "abilis foundation", "zapdd"
+  #,
+  #"dpos ", "dpo ", "dpo's", "dpos[.]", "dpo[.]", "dpo's[.]"
 )
 
 minor.keywords <- c(
@@ -132,8 +132,8 @@ disqualifying.keywords <- c(
   "environmental condition"
   ,
   "rehydration therapy"
-  ,
-  "-dpo", "cidpo", "hdpo", "dpo series", "financial sector dpo", "dpo (ri)", "management dpo", "poverty dpo", "growth dpo", "support dpo", "system dpo"
+  #,
+  #"-dpo", "cidpo", "hdpo", "dpo series", "financial sector dpo", "dpo (ri)", "management dpo", "poverty dpo", "growth dpo", "support dpo", "system dpo", "programmatic dpo"
   ,
   "fiscal"
   ,
