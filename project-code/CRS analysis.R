@@ -206,6 +206,9 @@ crs[gender != "1" & gender != "2"]$gender <- "No gender component"
 crs[gender == "1"]$gender <- "Partial gender component"
 crs[gender == "2"]$gender <- "Major gender component"
 
+save(crs, file="output/crs.RData", compression_level = 9)
+fwrite(crs, "output/crs.csv")
+
 crs.years <- dcast.data.table(crs, year ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 crs.donors <- dcast.data.table(crs, year + donor_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 crs.recipients <- dcast.data.table(crs, year + recipient_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
