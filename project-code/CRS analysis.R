@@ -42,7 +42,7 @@ keep <- c(
 )
 
 crs <- crs[, ..keep]
-crs <- crs[flow_name == "ODA Loans" | flow_name == "ODA Grants"]
+crs <- crs[flow_name == "ODA Loans" | flow_name == "ODA Grants" | flow_name == "Equity Investment" | flow_name == "Private Development Finance"]
 
 major.keywords <- c(
   "disab", "discapaci", "incapaci", "minusválido", "invalidit", "infirmité", "d-isab"
@@ -207,17 +207,21 @@ crs[gender == "1"]$gender <- "Partial gender component"
 crs[gender == "2"]$gender <- "Major gender component"
 
 save(crs, file="output/crs.RData", compression_level = 9)
-fwrite(crs, "output/crs.csv")
 
 crs.years <- dcast.data.table(crs, year ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 crs.donors <- dcast.data.table(crs, year + donor_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 crs.recipients <- dcast.data.table(crs, year + recipient_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 crs.sectors <- dcast.data.table(crs, year + purpose_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
+crs.flows <- dcast.data.table(crs, year + flow_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
+
+crs.iw.donors <- dcast(crs[recipient_name %in% c("Bangladesh", "Kenya", "Nigeria", "Uganda")], year + donor_name ~ relevance + employment + recipient_name, value.var="usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 
 fwrite(crs.years, "output/crs years.csv")
 fwrite(crs.sectors, "output/crs sectors.csv")
+fwrite(crs.flows, "output/crs flows.csv")
 fwrite(crs.donors, "output/crs donors.csv")
 fwrite(crs.recipients, "output/crs recipients.csv")
+fwrite(crs.iw.donors, "output/crs iw donors.csv")
 
 tocheck.positive <- crs[check == "potential false positive"]
 tocheck.negative <- crs[check == "potential false negative"]
