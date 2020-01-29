@@ -181,6 +181,20 @@ employment.keywords <- c(
   "vocation"
 )
 
+intellectual.keywords <- c(
+  "intellect", "intelect"
+  ,
+  "cognitive", "cognitiva"
+  ,
+  "autistic", "austism", "autist"
+  ,
+  "special needs", "necesidades especiales", "besoins spéciau"
+  ,
+  "special education", "educación especial", "éducation spéciale"
+  ,
+  "learning diff", "learning disa", "difficultés d'apprentissage", "dificultades de aprendizaje", "discapacidad de aprendizaje", "trouble d'apprentissage"
+)
+
 crs$relevance <- "None"
 crs[grepl(paste(minor.keywords, collapse = "|"), tolower(paste(crs$project_title, crs$short_description, crs$long_description)))]$relevance <- "Minor"
 crs[grepl(paste(major.keywords, collapse = "|"), tolower(crs$long_description))]$relevance <- "Minor"
@@ -200,6 +214,9 @@ crs[relevance != "None"][grepl(paste(inclusion.keywords, collapse = "|"), tolowe
 crs$employment <- "Not employment"
 crs[relevance != "None"][grepl(paste(employment.keywords, collapse = "|"), tolower(paste(crs[relevance != "None"]$project_title, crs[relevance != "None"]$short_description, crs[relevance != "None"]$long_description)))]$employment <- "Employment"
 
+crs$intellectual <- "Not intellectual"
+crs[relevance != "None"][grepl(paste(intellectual.keywords, collapse = "|"), tolower(paste(crs[relevance != "None"]$project_title, crs[relevance != "None"]$short_description, crs[relevance != "None"]$long_description)))]$intellectual <- "intellectual"
+
 crs$gender <- as.character(crs$gender)
 crs[is.na(gender)]$gender <- "0"
 crs[gender != "1" & gender != "2"]$gender <- "No gender component"
@@ -215,6 +232,7 @@ crs.sectors <- dcast.data.table(crs, year + purpose_name ~ relevance + inclusion
 crs.flows <- dcast.data.table(crs, year + flow_name ~ relevance + inclusion + employment + gender, value.var = "usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
 
 crs.iw.donors <- dcast(crs[recipient_name %in% c("Bangladesh", "Kenya", "Nigeria", "Uganda")], year + donor_name ~ relevance + employment + recipient_name, value.var="usd_disbursement_deflated", fun.aggregate = function (x) sum(x, na.rm=T))
+crs.intellectual <- crs[, .(value.id=sum(.SD[intellectual == "intellectual"]$usd_disbursement_deflated,na.rm=T), count.id=nrow(.SD[intellectual == "intellectual"]), value.od=sum(.SD[intellectual != "intellectual" & relevance != "None"]$usd_disbursement_deflated, na.rm=T), count.id=nrow(.SD[intellectual != "intellectual" & relevance != "None"])), by=.(year)]
 
 fwrite(crs.years, "output/crs years.csv")
 fwrite(crs.sectors, "output/crs sectors.csv")
@@ -222,6 +240,7 @@ fwrite(crs.flows, "output/crs flows.csv")
 fwrite(crs.donors, "output/crs donors.csv")
 fwrite(crs.recipients, "output/crs recipients.csv")
 fwrite(crs.iw.donors, "output/crs iw donors.csv")
+fwrite(crs.intellectual, "output/crs intellectual.csv")
 
 tocheck.positive <- crs[check == "potential false positive"]
 tocheck.negative <- crs[check == "potential false negative"]
